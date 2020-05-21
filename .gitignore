@@ -25,6 +25,8 @@ doc/api/
 *.ipr
 *.iws
 .idea/
+# Visual Studio Code
+.vscode/
 
 # Mac
 .DS_Store
