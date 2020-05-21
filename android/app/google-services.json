@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1044621341022",
+    "firebase_url": "https://sanal-menu-5ee26.firebaseio.com",
+    "project_id": "sanal-menu-5ee26",
+    "storage_bucket": "sanal-menu-5ee26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044621341022:android:e952870cbd4a6c38ca5fcf",
+        "android_client_info": {
+          "package_name": "com.fastafaryan.sanal_menu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044621341022-kjbtcvi1fmapi0uvj53kh2p0rbjakbp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLq1R2eV7MdMhELQvPqbtDpSrI2K9RGbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044621341022-kjbtcvi1fmapi0uvj53kh2p0rbjakbp5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
