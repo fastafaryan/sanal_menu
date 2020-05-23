@@ -1,6 +1,6 @@
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/models/item.dart';
-import 'package:sanal_menu/controllers/stream_service.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/shared/modifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

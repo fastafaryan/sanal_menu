@@ -1,5 +1,4 @@
-import 'file:///D:/Documents/Programming/sanal_menu/lib/controllers/admin/admin_controller.dart';
-import 'package:sanal_menu/controllers/auth_controller.dart';
+import 'package:sanal_menu/controllers/admin/admin_controller.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +29,10 @@ class _AdminAddUserState extends State<AdminAddUser> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.arrow_back),
-                    onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('Users'),
+                    onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('Devices'),
                   ),
                   SizedBox(width: 20),
-                  header1('Create New User'),
+                Text("Add New Uevice", style: Theme.of(context).textTheme.headline4,)
                 ],
               ),
             ),

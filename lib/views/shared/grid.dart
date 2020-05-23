@@ -27,11 +27,11 @@ class Grid extends StatelessWidget {
     }
 
     return Container(
+      height: 500,
+      width: 500,
       decoration: BoxDecoration(
         border: Border.all(width: .5, color: Colors.grey),
       ),
-      height: 500,
-      width: 500,
       child: FlatButton(
         padding: EdgeInsets.all(0),
         // Display popup on press
@@ -39,15 +39,20 @@ class Grid extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return Popup(item: item, isPreview: isPreview,);
+              return Popup(
+                item: item,
+                isPreview: isPreview,
+              );
             },
           );
         },
         child: GridTile(
-          header: FittedBox(
-            child: (item.image == null) ? Image.asset('assets/no-preview.png') : (isAsset ? Image.asset(item.image) : Image.network(item.image)),
+          child: Container(
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: (item.image == null) ? Image.asset('assets/no-preview.png') : (isAsset ? Image.asset(item.image) : Image.network(item.image)),
+            ),
           ),
-          child: Container(),
           footer: Container(
             color: Colors.white,
             child: Column(

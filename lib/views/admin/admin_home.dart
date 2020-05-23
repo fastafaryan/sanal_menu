@@ -2,7 +2,7 @@ import 'package:sanal_menu/models/device.dart';
 import 'package:sanal_menu/models/user.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/controllers/admin/admin_controller.dart';
-import 'package:sanal_menu/controllers/stream_service.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/admin/tabs/devices/admin_device_list.dart';
 import 'package:sanal_menu/views/admin/tabs/devices/admin_add_device.dart';
 import 'package:sanal_menu/views/admin/tabs/items/admin_add_edit_item.dart';

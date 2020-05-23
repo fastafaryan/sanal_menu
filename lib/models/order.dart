@@ -1,4 +1,4 @@
-import 'package:sanal_menu/controllers/stream_service.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 
 class Order {
   Order({this.id, this.deviceID, this.itemID, this.quantity, this.status, this.assignnee, this.creationTime}) {

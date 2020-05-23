@@ -1,5 +1,5 @@
 import 'package:sanal_menu/models/order.dart';
-import 'package:sanal_menu/controllers/stream_service.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/cook/tabs/cook_assignments.dart';
 import 'package:sanal_menu/views/cook/tabs/cook_orders.dart';
 import 'package:flutter/material.dart';

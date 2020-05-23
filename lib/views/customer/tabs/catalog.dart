@@ -15,29 +15,25 @@ class Catalog extends StatelessWidget {
         size: 50.0,
       );
     }
-    if (snapshot.data == null) {
+    if (snapshot.data == null || snapshot.data.length == 0) {
       return Center(
-        child: Text('Menü boş'),
+        child: Text('Nothing to display here'),
       );
     }
 
-    return snapshot.data.length > 0
-        ? GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: .9,
-            ),
-            itemCount: snapshot.data.length,
-            itemBuilder: (_, int index) {
-              return Grid(
-                item: snapshot.data[index],
-                isAsset: false,
-                isPreview: false,
-              );
-            },
-          )
-        : Center(
-            child: Text('Menü boş'),
-          );
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: .9,
+      ),
+      itemCount: snapshot.data.length,
+      itemBuilder: (_, int index) {
+        return Grid(
+          item: snapshot.data[index],
+          isAsset: false,
+          isPreview: false,
+        );
+      },
+    );
   }
 }

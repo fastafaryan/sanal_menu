@@ -1,5 +1,5 @@
 import 'package:sanal_menu/models/user.dart';
-import 'package:sanal_menu/controllers/stream_service.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/admin/admin_home.dart';
 import 'package:sanal_menu/views/cook/cook_home.dart';
 import 'package:sanal_menu/views/waiter/waiter_home.dart';
@@ -18,12 +18,10 @@ class LandingPage extends StatelessWidget {
         stream: roleStream,
         builder: (context, role) {
           if (role.data == null || role.data.length == 0) {
-            if (role.connectionState == ConnectionState.waiting) {
-              return SpinKitRing(
-                color: Colors.black,
-                size: 50.0,
-              );
-            }
+            return SpinKitRing(
+              color: Colors.black,
+              size: 50.0,
+            );
           }
 
           if (role.data[0].role == 'Admin') return AdminHome();

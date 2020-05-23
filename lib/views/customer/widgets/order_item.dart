@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/controllers/customer_controller.dart';
-import 'package:sanal_menu/controllers/stream_service.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/shared/confirmation_popup.dart';
 
 class OrderItem extends StatelessWidget {

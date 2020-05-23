@@ -1,9 +1,9 @@
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
-import 'package:sanal_menu/controllers/stream_service.dart';
 import 'package:sanal_menu/views/customer/tabs/cart.dart';
 import 'package:sanal_menu/views/customer/tabs/catalog.dart';
 import 'package:sanal_menu/views/customer/tabs/orders.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:sanal_menu/controllers/auth_controller.dart';

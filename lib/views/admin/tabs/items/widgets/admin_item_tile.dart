@@ -38,7 +38,7 @@ class AdminItemTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   header2(item.name),
-                  Text(item.price.toString() +  ' \$'),
+                  Text('\$'+item.price.toString()),
                 ],
               ),
             ],
