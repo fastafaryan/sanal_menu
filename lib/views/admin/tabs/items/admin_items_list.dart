@@ -18,7 +18,7 @@ class AdminItemsList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              header1("Menü Ürünleri"),
+              header1("Catalog Items"),
               IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
@@ -31,7 +31,7 @@ class AdminItemsList extends StatelessWidget {
         ),
         (snapshot == null || snapshot.data == null || snapshot.data.length == 0)
             ? Center(
-                child: Text('Görüntülenecek bir şey yok!'),
+                child: Text('Nothing to display.'),
               )
             : Expanded(
                 child: ListView.builder(

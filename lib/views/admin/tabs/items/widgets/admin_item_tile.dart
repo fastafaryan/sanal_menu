@@ -38,7 +38,7 @@ class AdminItemTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   header2(item.name),
-                  Text(item.price.toString() + " TL"),
+                  Text(item.price.toString() +  ' \$'),
                 ],
               ),
             ],
@@ -55,12 +55,12 @@ class AdminItemTile extends StatelessWidget {
                   final result = await showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return ConfirmationPopup(message: "Ürünü silmek üzeresiniz. Bunu yapmak istediğinize emin misiniz?");
+                        return ConfirmationPopup(message: "Do you wish to delete this item?");
                       });
                   // If click on yes delete
                   if (result == true) {
                     String message = Provider.of<AdminItemController>(context, listen: false).deleteItem(item);
-                    Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
+                    Scaffold.of(context).showSnackBar(SnackBar(content: Text(message) ,backgroundColor: Colors.red[900],));
                   }
                 },
               ),

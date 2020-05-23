@@ -41,7 +41,7 @@ class AdminAddEditItem extends StatelessWidget {
                 // NAME
                 TextFormField(
                   initialValue: item != null ? item.name : '',
-                  decoration: inputDecoration.copyWith(labelText: "Ad"),
+                  decoration: inputDecoration.copyWith(labelText: "Name"),
                   validator: (val) => val.isEmpty ? 'Zorunlu' : null,
                   onChanged: (val) => Provider.of<AdminItemController>(context, listen: false).setName(val),
                 ),
@@ -50,7 +50,7 @@ class AdminAddEditItem extends StatelessWidget {
                 // PRICE
                 TextFormField(
                   initialValue: item != null ? item.price.toString() : '',
-                  decoration: inputDecoration.copyWith(labelText: 'Fiyat'),
+                  decoration: inputDecoration.copyWith(labelText: 'Price'),
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
                   onChanged: (val) => Provider.of<AdminItemController>(context, listen: false).setPrice(double.parse(val)),
@@ -62,7 +62,7 @@ class AdminAddEditItem extends StatelessWidget {
                 // DESCRIPTION
                 TextFormField(
                   initialValue: item != null ? item.desc : '',
-                  decoration: inputDecoration.copyWith(labelText: 'Açıklama'),
+                  decoration: inputDecoration.copyWith(labelText: 'Description'),
                   keyboardType: TextInputType.text,
                   onChanged: (val) => Provider.of<AdminItemController>(context, listen: false).setDesc(val),
                 ),
@@ -71,7 +71,7 @@ class AdminAddEditItem extends StatelessWidget {
 
                 // SELECT PHOTO BUTTON
                 FlatButton(
-                  child: imageFile == null ? Text('Fotoğraf Seç') : Text('Başka Fotoğraf Seç'),
+                  child: imageFile == null ? Text('Select an image') : Text('Select another image'),
                   onPressed: () {
                     Provider.of<AdminItemController>(context, listen: false).pickImage();
                   },
@@ -92,7 +92,7 @@ class AdminAddEditItem extends StatelessWidget {
 
                 // SUBMIT BUTTON
                 RaisedButton(
-                  child: Text('Ekle'),
+                  child: Text('Add', style: Theme.of(context).textTheme.button),
                   onPressed: () async {
                     String result = await Provider.of<AdminItemController>(context, listen: false).addEditItem();
                     // Switch tab body back to list.

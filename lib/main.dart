@@ -29,14 +29,17 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.deepOrange[200],
-          accentColor: Colors.deepOrange[200],
-          buttonColor: Colors.deepOrange[200],
-          scaffoldBackgroundColor: Colors.grey[300],
+          primaryColor: Colors.red[900],
+          accentColor: Colors.red[900],
+          buttonColor: Colors.red[900],
           textTheme: TextTheme(
-            //title: TextStyle(fontSize: 50.0, fontStyle: FontStyle.italic),
-            button: TextStyle(fontSize: 20, color: Colors.white),
+            button: TextStyle(color: Colors.white),
           ),
+          buttonTheme: ButtonThemeData(
+            buttonColor: Colors.red[900],
+            highlightColor: Colors.red,
+          ),
+          scaffoldBackgroundColor: Colors.grey[200],
         ),
         title: 'Provider Demo',
         initialRoute: '/customer',

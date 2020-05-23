@@ -17,7 +17,7 @@ class AdminDeviceList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              header1("Menü Ürünleri"),
+              header1("Devices"),
               IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('AddDevice'),
@@ -27,7 +27,7 @@ class AdminDeviceList extends StatelessWidget {
         ),
         (snapshot == null || snapshot.data == null || snapshot.data.length == 0)
             ? Center(
-                child: Text('Görüntülenecek bir şey yok!'),
+                child: Text('Nothing to display.'),
               )
             : Expanded(
                 child: ListView.builder(
@@ -47,7 +47,7 @@ class AdminDeviceList extends StatelessWidget {
                                 Row(
                                   children: <Widget>[
                                     Text(
-                                      "İsim: ",
+                                      "Name: ",
                                       style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                     Text(snapshot.data[index].name),
@@ -56,7 +56,7 @@ class AdminDeviceList extends StatelessWidget {
                                 Row(
                                   children: <Widget>[
                                     Text(
-                                      "Cihaz ID: ",
+                                      "Device ID: ",
                                       style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                     Text(snapshot.data[index].id),
@@ -71,7 +71,7 @@ class AdminDeviceList extends StatelessWidget {
                                   onPressed: () async {
                                     String result =
                                         await AdminController().removeDevice(snapshot.data[index].id); // call addDevice function from controller
-                                    Scaffold.of(context).showSnackBar(SnackBar(content: Text(result))); // display message about result
+                                    Scaffold.of(context).showSnackBar(SnackBar(content: Text(result), backgroundColor: Colors.red[900],)); // display message about result
                                   },
                                 ),
                                 IconButton(

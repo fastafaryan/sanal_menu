@@ -25,12 +25,12 @@ class ConfirmationPopup extends StatelessWidget {
               children: <Widget>[
                 RaisedButton(
                   onPressed: () => Navigator.pop(context, false),
-                  child: Text('Hayır'),
+                  child: Text('No'),
                 ),
                 SizedBox(width: 15),
                 RaisedButton(
                   onPressed: () => Navigator.pop(context, true),
-                  child: Text('Evet'),
+                  child: Text('Yes'),
                 ),
               ],
             ),

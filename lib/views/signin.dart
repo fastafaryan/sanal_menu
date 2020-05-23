@@ -1,6 +1,4 @@
-import 'package:sanal_menu/models/user.dart';
 import 'package:sanal_menu/controllers/auth_controller.dart';
-import 'package:sanal_menu/controllers/stream_service.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +13,7 @@ class _SignInState extends State<SignIn> {
   String email = '';
   String password = '';
   String error = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,14 +27,14 @@ class _SignInState extends State<SignIn> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    Text('Yönetici Girişi',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(
+                      'Sign in',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
                     SizedBox(height: 10),
                     TextFormField(
                       decoration: inputDecoration.copyWith(labelText: 'Email'),
-                      validator: (val) =>
-                          val.isEmpty ? 'email field is missing' : null,
+                      validator: (val) => val.isEmpty ? 'email field is missing' : null,
                       onChanged: (val) {
                         setState(() {
                           email = val.trim();
@@ -44,11 +43,9 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 10),
                     TextFormField(
-                      decoration: inputDecoration.copyWith(labelText: 'Şifre'),
+                      decoration: inputDecoration.copyWith(labelText: 'Password'),
                       obscureText: true,
-                      validator: (val) => val.length < 6
-                          ? 'Enter a password 6+ chars long'
-                          : null,
+                      validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
                       onChanged: (val) {
                         setState(() {
                           password = val.trim();
@@ -57,19 +54,17 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 10),
                     RaisedButton(
-                      child: Text('Giriş Yap'),
+                      child: Text('Sign in', style: Theme.of(context).textTheme.button),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          dynamic user = await _auth.signInWithEmailAndPassword(
-                              email, password);
+                          dynamic user = await _auth.signInWithEmailAndPassword(email, password);
 
                           if (user == null) {
                             setState(() {
-                              error = 'Giriş bilgileri yanlış!';
+                              error = 'Wrong credentials!';
                             });
                           } else {
-                            Navigator.pushReplacementNamed(
-                                context, '/landingPage');
+                            Navigator.pushReplacementNamed(context, '/landingPage');
                           }
                         }
                       },

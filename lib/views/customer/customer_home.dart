@@ -53,13 +53,13 @@ class _CustomerHomeState extends State<CustomerHome> {
                       items: [
                         BottomNavigationBarItem(
                           icon: new Icon(Icons.local_dining),
-                          title: new Text('Menü'),
+                          title: new Text('Catalog'),
                         ),
                         BottomNavigationBarItem(
                           icon: new Icon(Icons.shopping_basket),
-                          title: new Text('Sepet'),
+                          title: new Text('Cart'),
                         ),
-                        BottomNavigationBarItem(icon: Icon(Icons.av_timer), title: Text('Siparişler'))
+                        BottomNavigationBarItem(icon: Icon(Icons.av_timer), title: Text('Orders'))
                       ],
                     ),
                   );

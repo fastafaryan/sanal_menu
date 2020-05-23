@@ -32,7 +32,8 @@ class Cart extends StatelessWidget {
                       child: RaisedButton(
                         onPressed: () =>
                             CustomerController().completeOrders(snapshot.data),
-                        child: Text("Sipariş ver"),
+                        child: Text("Sipariş ver", style: Theme.of(context).textTheme.button),
+                        elevation: 0,
                       ),
                     )
                   ],

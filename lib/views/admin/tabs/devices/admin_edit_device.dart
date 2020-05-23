@@ -27,19 +27,19 @@ class AdminEditDevice extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          "Cihaz Adını Güncelle",
-                          style: TextStyle(fontSize: 20),
+                          "Update device's display name",
+                          style: Theme.of(context).textTheme.headline4
                         ),
                         SizedBox(height: 20),
                         TextFormField(
-                          decoration: inputDecoration.copyWith(labelText: "Cihazın adı"),
+                          decoration: inputDecoration.copyWith(labelText: "New display name: "),
                           onChanged: (val) {
                             name = val;
                           },
                         ),
                         SizedBox(height: 20),
                         RaisedButton(
-                          child: Text('Güncelle'),
+                          child: Text('Update'),
                           onPressed: () async {
                             String result = await AdminController().editDeviceName(device.id, name); // call addDevice function from controller
                             Navigator.of(context, rootNavigator: true).pop(result);

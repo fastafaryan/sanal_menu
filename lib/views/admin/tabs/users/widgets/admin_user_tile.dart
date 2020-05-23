@@ -1,5 +1,5 @@
 import 'package:sanal_menu/models/user.dart';
-import 'file:///D:/Documents/Programming/sanal_menu/lib/controllers/admin/admin_controller.dart';
+import 'package:sanal_menu/controllers/admin/admin_controller.dart';
 import 'package:sanal_menu/views/shared/confirmation_popup.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class AdminUserTile extends StatelessWidget {
                     final result = await showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return ConfirmationPopup(message: "Kullanıcıyı silmek isteğinize emin misiniz?");
+                        return ConfirmationPopup(message: "Do you wish to delete?");
                       },
                     );
                     // If clicked on yes button then delete

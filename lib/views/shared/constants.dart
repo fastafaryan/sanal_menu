@@ -17,7 +17,7 @@ AppBar appBarAuth(BuildContext context) {
     ),
     title: Center(
       child: Text(
-        'Sanal Menü',
+        'Sanal Menu',
       ),
     ),
     actions: <Widget>[
@@ -25,6 +25,7 @@ AppBar appBarAuth(BuildContext context) {
         icon: Icon(Icons.exit_to_app),
         onPressed: () {
           AuthController().signOut();
+          AuthController().signInAnonymously();
           Navigator.pushNamed(context, '/customer');
         },
       )
@@ -40,7 +41,7 @@ AppBar appBarNonAuth(BuildContext context) {
     ),
     title: Center(
       child: Text(
-        'Sanal Menü',
+        'Sanal Menu',
       ),
     ),
     actions: <Widget>[
@@ -53,9 +54,15 @@ AppBar appBarNonAuth(BuildContext context) {
 }
 
 Text header1(String str) {
-  return Text(str, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17.5),);
+  return Text(
+    str,
+    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17.5),
+  );
 }
 
 Text header2(String str) {
-  return Text(str, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),);
+  return Text(
+    str,
+    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+  );
 }

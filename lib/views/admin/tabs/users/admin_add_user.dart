@@ -33,7 +33,7 @@ class _AdminAddUserState extends State<AdminAddUser> {
                     onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('Users'),
                   ),
                   SizedBox(width: 20),
-                  header1('Yeni Kullanıcı Oluştur'),
+                  header1('Create New User'),
                 ],
               ),
             ),
@@ -43,7 +43,7 @@ class _AdminAddUserState extends State<AdminAddUser> {
                 children: <Widget>[
                   // NAME
                   TextFormField(
-                    decoration: inputDecoration.copyWith(labelText: "Ad Soyad"),
+                    decoration: inputDecoration.copyWith(labelText: "Full name"),
                     onChanged: (val) {
                       name = val;
                     },
@@ -61,7 +61,7 @@ class _AdminAddUserState extends State<AdminAddUser> {
                   SizedBox(height: 10),
                   // PASSWORD
                   TextFormField(
-                    decoration: inputDecoration.copyWith(labelText: "Şifre"),
+                    decoration: inputDecoration.copyWith(labelText: "Password"),
                     obscureText: true,
                     validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
                     onChanged: (val) {
@@ -96,23 +96,11 @@ class _AdminAddUserState extends State<AdminAddUser> {
                   SizedBox(height: 10),
                   // SUBMIT
                   RaisedButton(
-                    child: Text('Oluştur'),
+                    child: Text('Create'),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         dynamic result = await AdminController().createCustomUser(email: email, pwd: password, name: name, role: role);
-
-                        print(result);
                       }
-                    },
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  RaisedButton(
-                    child: Text('Oluştur'),
-                    onPressed: () async {
-                      String uid = await AuthController().getCurrentUserId();
-                      print(uid);
                     },
                   ),
                   SizedBox(

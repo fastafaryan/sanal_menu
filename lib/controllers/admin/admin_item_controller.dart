@@ -95,8 +95,10 @@ class AdminItemController with ChangeNotifier {
         title: 'Fotoğrafı Kes',
       ),
     );
+    initItemIfNull();
     _oldImage = item.image;
     setImageName(_imageFile.path);
+    setName("");
   }
 
   // GENERATE FILE NAME
@@ -114,14 +116,14 @@ class AdminItemController with ChangeNotifier {
 
   // Calls uploadImage function to upload _imageFile. Creates a new item instance in DB.
   Future addEditItem() async {
-    // if item.id is defined this means item exists in DB. Thus performs update. 
+    // if item.id is defined this means item exists in DB. Thus performs update.
     if (item.id == null) {
       String imagePath = await uploadImage();
       Firestore.instance.collection('items').add({'name': item.name, 'price': item.price, 'desc': item.desc, 'image': imagePath});
       return "A new record has been created.";
     }
 
-    // if item.id is not defined this means item does not exist in DB. Thus performs create. 
+    // if item.id is not defined this means item does not exist in DB. Thus performs create.
     if (item.id != null) {
       // if any new image is not selected update without image.
       if (_imageFile == null) {
@@ -144,11 +146,11 @@ class AdminItemController with ChangeNotifier {
     }
   }
 
-  String deleteItem(Item item)  {
+  String deleteItem(Item item) {
     // delete document record
     Firestore.instance.collection('items').document(item.id).delete();
     // image storage
     FirebaseStorage.instance.getReferenceFromUrl(item.image).then((value) => value.delete());
-    return "Seçili ürün kaldırıldı";
+    return "Item deleted.";
   }
 }

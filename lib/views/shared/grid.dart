@@ -27,7 +27,9 @@ class Grid extends StatelessWidget {
     }
 
     return Container(
-      padding: EdgeInsets.all(1),
+      decoration: BoxDecoration(
+        border: Border.all(width: .5, color: Colors.grey),
+      ),
       height: 500,
       width: 500,
       child: FlatButton(

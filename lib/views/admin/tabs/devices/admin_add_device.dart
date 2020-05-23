@@ -16,22 +16,25 @@ class AdminAddDevice extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                Text(
-                    'Bu sekme üzerinden bu cihaza sipariş verme yetkilendirmesi yapabilirsiniz. Aşağıda bulunan alana sistemde bu cihazın adının ne olarak görüntüleceğini belirtiniz. Örn: Masa 1'),
+                Text("You can register a device to system from this tab. Just enter what this device's display name will be."),
                 SizedBox(height: 20),
                 // NAME
                 TextFormField(
-                  decoration: inputDecoration.copyWith(labelText: "Cihazın adı"),
+                  decoration: inputDecoration.copyWith(labelText: "Display name"),
                   onChanged: (val) {
                     name = val;
                   },
                 ),
                 SizedBox(height: 12),
                 RaisedButton(
-                    child: Text('Yetkilendir'),
+                    child: Text('Register', style: Theme.of(context).textTheme.button,),
                     onPressed: () async {
                       String result = await AdminController().addDevice(name); // call addDevice function from controller
-                      Scaffold.of(context).showSnackBar(SnackBar(content: Text(result))); // display message about result
+                      AdminController().switchTabBody('Devices');
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text(result),
+                        backgroundColor: Colors.green,
+                      )); // display message about result
                     }),
                 SizedBox(height: 12),
                 Text(

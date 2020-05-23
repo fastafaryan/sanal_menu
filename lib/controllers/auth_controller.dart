@@ -25,23 +25,16 @@ class AuthController {
   // register with email & password
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-       return await _auth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((currentUser) {
-      if (currentUser == null) {
-        print("null current user");
-      } else {
-        Firestore.instance
-            .collection("users")
-            .document(currentUser.user.uid)
-            .setData({
-          "uid": currentUser.user.uid,
-          "name": 'Root Admin',
-          "email": email,
-          "role": 'Admin'
-        });
-      }
-    });
+      return await _auth.createUserWithEmailAndPassword(email: email, password: password).then((currentUser) {
+        if (currentUser == null) {
+          print("null current user");
+        } else {
+          Firestore.instance
+              .collection("users")
+              .document(currentUser.user.uid)
+              .setData({"uid": currentUser.user.uid, "name": 'Root Admin', "email": email, "role": 'Admin'});
+        }
+      });
     } catch (e) {
       print(e.toString());
       return null;
@@ -51,8 +44,7 @@ class AuthController {
   // sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       return user;
     } catch (e) {
@@ -82,5 +74,4 @@ class AuthController {
       return false;
     }
   }
-
 }

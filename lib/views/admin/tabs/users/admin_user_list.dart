@@ -12,7 +12,7 @@ class AdminUserList extends StatelessWidget {
   Widget build(BuildContext context) {
     if (snapshot == null || snapshot.data == null || snapshot.data.length == 0) {
       return Center(
-        child: Text('Görüntülenecek bir şey yok!'),
+        child: Text('Nothing to display!'),
       );
     }
     return Column(
@@ -22,7 +22,7 @@ class AdminUserList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              header1("Kullanıcılar"),
+              header1("Users"),
               // ADD USER BUTTON
               IconButton(
                 icon: Icon(Icons.add),
