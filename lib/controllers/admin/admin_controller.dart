@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:sanal_menu/controllers/base_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:device_id/device_id.dart';
 
 class AdminController extends BaseController with ChangeNotifier {
   int _tabIndex = 0;
   int _navBarIndex = 0;
-  
+
   int get getTabIndex => _tabIndex;
   int get getNavBarIndex => _navBarIndex;
 
@@ -30,8 +32,9 @@ class AdminController extends BaseController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future createCustomUser({String email, String pwd, String name, String role}) async {
-    return await auth.createUserWithEmailAndPassword(email: email, password: pwd).then((currentUser) {
+  Future addUser({String email, String pwd, String name, String role}) async {
+    FirebaseApp app = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
+    FirebaseAuth.fromApp(app).createUserWithEmailAndPassword(email: email, password: pwd).then((currentUser) {
       if (currentUser == null) {
         print("null current user");
       } else {
@@ -41,11 +44,14 @@ class AdminController extends BaseController with ChangeNotifier {
             .setData({"uid": currentUser.user.uid, "name": name, "email": email, "role": role});
       }
     });
+    return "User added.";
   }
 
-  String deleteUser(String userID) {
-    usersCollection.document(userID).delete();
-    return "Kullanıcı silindi.";
+  Future deleteUser(String userID) async {
+    //FirebaseApp app = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
+   // await FirebaseAuth.instance.signInWithEmailAndLink()
+    //usersCollection.document(userID).delete();
+    return "This function is not available yet.";
   }
 
   // Add a new device record to DB
@@ -92,6 +98,4 @@ class AdminController extends BaseController with ChangeNotifier {
     devicesCollection.document(query.documents.first.documentID).updateData({'name': name});
     return "Kayıt güncellendi.";
   }
-
-  
 }

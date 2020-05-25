@@ -11,8 +11,6 @@ import 'package:device_id/device_id.dart';
 class StreamController extends BaseController {
   AuthController _authService = AuthController();
 
-  // CUSTOMER
-
   // STREAM OF ALL CURRENT USER CART ITEMS
   Stream<List<Order>> get userCartItems async* {
     String deviceID = await DeviceId.getID;
@@ -61,6 +59,22 @@ class StreamController extends BaseController {
     });
   }
 
+  // ACCESSING ITEM BY ITS ID. USED TO ACCESS ITEM THROUGH ORDER.
+  Future<Device> getDeviceByID(String deviceID) async {
+    QuerySnapshot query = await devicesCollection.where('id', isEqualTo: deviceID).getDocuments();
+    if (query.documents.length == 1) {
+      return devicesCollection.document(query.documents.first.documentID).get().then((doc) {
+        return Device(
+          id: doc.documentID ?? '',
+          name: doc.data['name'] ?? '',
+        );
+      });
+    } else if (query.documents.length > 1)
+      throw "Duplicate records exist";
+    else
+      throw "Record not found.";
+  }
+
   // STREAM OF ALL MENU ITEMS
   Stream<List<Item>> get menuItems {
     return Firestore.instance.collection('items').snapshots().map(itemsFromSnapshot);
@@ -74,7 +88,6 @@ class StreamController extends BaseController {
           id: doc.data['id'] ?? '',
           name: doc.data['name'] ?? '',
         );
-        
       }).toList();
     });
   }

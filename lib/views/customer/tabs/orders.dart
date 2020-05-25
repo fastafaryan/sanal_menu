@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sanal_menu/views/customer/widgets/order_item.dart';
+import 'package:sanal_menu/views/customer/widgets/customer_order_tile.dart';
 
 class OrdersView extends StatelessWidget {
   AsyncSnapshot snapshot;
@@ -7,22 +7,18 @@ class OrdersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (snapshot.data == null) {
+    if (snapshot.data == null || snapshot.data.length == 0) {
       return Center(
-        child: Text('Henüz bir şipariş vermediniz.'),
+        child: Text('Nothing to diplay.'),
       );
     }
 
-    return snapshot.data.length > 0
-        ? ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (_, int index) {
-              //return Text("Order Item");
-              return OrderItem(order: snapshot.data[index]);
-            },
-          )
-        : Center(
-            child: Text('Henüz bir şipariş vermediniz.'),
-          );
+    return ListView.builder(
+      itemCount: snapshot.data.length,
+      itemBuilder: (_, int index) {
+        //return Text("Order Item");
+        return CustomerOrderTile(order: snapshot.data[index]);
+      },
+    );
   }
 }

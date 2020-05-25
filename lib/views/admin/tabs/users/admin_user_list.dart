@@ -1,4 +1,4 @@
-import 'file:///D:/Documents/Programming/sanal_menu/lib/controllers/admin/admin_controller.dart';
+import 'package:sanal_menu/controllers/admin/admin_controller.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:sanal_menu/views/admin/tabs/users/widgets/admin_user_tile.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +17,15 @@ class AdminUserList extends StatelessWidget {
     }
     return Column(
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(15),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal:10, vertical: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              header1("Users"),
+              Text("Users", style: Theme.of(context).textTheme.subtitle1),
               // ADD USER BUTTON
               IconButton(
+                padding: EdgeInsets.all(0),
                 icon: Icon(Icons.add),
                 onPressed: () => Provider.of<AdminController>(context,listen: false).switchTabBody('AddUser'),
               ),

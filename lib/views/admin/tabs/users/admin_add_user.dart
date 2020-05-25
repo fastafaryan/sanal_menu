@@ -29,10 +29,13 @@ class _AdminAddUserState extends State<AdminAddUser> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.arrow_back),
-                    onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('Devices'),
+                    onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('Users'),
                   ),
                   SizedBox(width: 20),
-                Text("Add New Uevice", style: Theme.of(context).textTheme.headline4,)
+                  Text(
+                    "Add New User",
+                    style: Theme.of(context).textTheme.headline6,
+                  )
                 ],
               ),
             ),
@@ -95,12 +98,20 @@ class _AdminAddUserState extends State<AdminAddUser> {
                   SizedBox(height: 10),
                   // SUBMIT
                   RaisedButton(
-                    child: Text('Create'),
+                    child: Text('Add', style: Theme.of(context).textTheme.button),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        dynamic result = await AdminController().createCustomUser(email: email, pwd: password, name: name, role: role);
+                        String result = await AdminController().addUser(email: email, pwd: password, name: name, role: role);
+                        // Switch tab body back to list.
+                        Provider.of<AdminController>(context, listen: false).switchTabBody('Users');
+                        // Display meesage based on result
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(result),
+                          backgroundColor: Colors.green,
+                        ));
                       }
                     },
+                    //
                   ),
                   SizedBox(
                     height: 12,

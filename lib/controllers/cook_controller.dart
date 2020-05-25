@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sanal_menu/controllers/base_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class CookController extends ChangeNotifier with BaseController{
+class CookController extends ChangeNotifier with BaseController {
   // list for storing selected orders by checking checkboxes in the UI.
   final List<Order> _selectedOrders = [];
   final List<Order> _selectedAssignments = [];
@@ -31,11 +31,10 @@ class CookController extends ChangeNotifier with BaseController{
       else
         removeOrder(_selectedAssignments, order);
     }
-
   }
 
   // assigns orders in selected orders list to currently signed user.
-  Future<void> assignOrder() async {
+  Future<String> assignOrder() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser(); // gets current user.
 
     // runs a loop for each selected orders. updates their assignee field to current user's uid.
@@ -46,9 +45,11 @@ class CookController extends ChangeNotifier with BaseController{
 
     this._selectedOrders.clear(); // clears selected orders list
     notifyListeners(); // notifies listener widgets for update.
+    return "Orders are assigned to you successfully.";
+
   }
 
-  void setAsReady() {
+  String setAsReady() {
     // runs a loop for each selected assignments. updates their status to ready and assignee to null
     this._selectedAssignments.forEach((order) {
       Firestore.instance.collection('orders').document(order.id).updateData({'assignee': null, 'status': 'Ready'}); // update DB
@@ -57,6 +58,18 @@ class CookController extends ChangeNotifier with BaseController{
 
     this._selectedAssignments.clear(); // clears selected orders list
     notifyListeners(); // notifies listener widgets for update.
+    return "Orders are set as ready.";
   }
 
+  // Release assignment
+  String releaseAssignments() {
+    // runs a loop for each selected orders. updates their assignee field to null.
+    this._selectedAssignments.forEach((order) {
+      order.setStatus('Ordered');
+      order.setAssignee(null);
+      order.toggleSelection(); // set order model class value to false
+      order.update();
+    });
+    return "Order released.";
+  }
 }

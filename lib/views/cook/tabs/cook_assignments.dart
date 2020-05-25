@@ -12,7 +12,7 @@ class CookAssignment extends StatelessWidget {
   Widget build(BuildContext context) {
     if (snapshot == null || snapshot.data == null || snapshot.data.length == 0) {
       return Center(
-        child: Text('Atanan görev bulunmuyor.'),
+        child: Text('Nothing to display.'),
       );
     }
 
@@ -20,24 +20,55 @@ class CookAssignment extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                "Servislerim",
-                style: TextStyle(fontSize: 25),
+                "My Assignments",
+                style: Theme.of(context).textTheme.subtitle1,
               ),
-              RaisedButton(
-                child: Icon(Icons.done),
-                onPressed: () async {
-                  final result = await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ConfirmationPopup(message: "Seçili siparişleri hazır olarak işaretlemeye emin misiniz?");
-                      });
-                  if (result == true) Provider.of<CookController>(context, listen: false).setAsReady();
-                },
+              // Release button
+              Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.settings_backup_restore),
+                    onPressed: () async {
+                      final result = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ConfirmationPopup(message: "Do you want to release these orders?");
+                          });
+                      if (result == true) {
+                        String result = Provider.of<CookController>(context, listen: false).releaseAssignments();
+                        // Display meesage based on result
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(result),
+                          backgroundColor: Colors.green,
+                        ));
+                      }
+                    },
+                  ),
+                  // Done button
+                  IconButton(
+                    icon: Icon(Icons.done),
+                    onPressed: () async {
+                      final result = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ConfirmationPopup(message: "Do you want to set these orders as ready?");
+                          });
+                      if (result == true) {
+                        String result = Provider.of<CookController>(context, listen: false).setAsReady();
+                        // Display meesage based on result
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(result),
+                          backgroundColor: Colors.green,
+                        ));
+                      }
+                    },
+                  ),
+                ],
               ),
             ],
           ),

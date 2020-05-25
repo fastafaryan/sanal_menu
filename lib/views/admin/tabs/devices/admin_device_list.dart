@@ -13,11 +13,11 @@ class AdminDeviceList extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              header1("Devices"),
+              Text("Devices", style: Theme.of(context).textTheme.subtitle1),
               IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('AddDevice'),

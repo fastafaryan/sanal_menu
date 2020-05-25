@@ -20,7 +20,7 @@ class Grid extends StatelessWidget {
           height: 500,
           width: 500,
           child: Center(
-            child: Text("Görüntüleyecek bir şey yok."),
+            child: Text("Nothing to display."),
           ),
         ),
       );
@@ -57,8 +57,16 @@ class Grid extends StatelessWidget {
             color: Colors.white,
             child: Column(
               children: <Widget>[
-                header2(item.name),
-                Text(item.price.toString() + " TL"),
+                // display name
+                Text(
+                  item.name,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                // display price
+                Text(
+                  item.price.toString() + " TL",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
               ],
             ),
           ),

@@ -16,20 +16,20 @@ class AdminUserTile extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            SizedBox(
-              width: 200,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  header2(user.name),
-                  Text(user.email),
-                ],
-              ),
+            // USER INFORMATIONS
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(user.name, style: Theme.of(context).textTheme.bodyText2),
+                Text(user.role, style: Theme.of(context).textTheme.caption),
+                Text(user.email, style: Theme.of(context).textTheme.caption),
+              ],
             ),
-            SizedBox(width: 50),
-            Text(user.role),
-            Spacer(),
+
+            // RIGHT SIDE BUTTONS
             Row(
               children: <Widget>[
                 // DELETE USER BUTTON
@@ -45,8 +45,11 @@ class AdminUserTile extends StatelessWidget {
                     );
                     // If clicked on yes button then delete
                     if (result == true) {
-                      String message = AdminController().deleteUser(user.id);
-                      Scaffold.of(context).showSnackBar(SnackBar(content: Text(message))); // display message about result
+                      String message = await AdminController().deleteUser(user.id);
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text(message),
+                        backgroundColor: Theme.of(context).accentColor,
+                      )); // display message about result
                     }
                   },
                 ),

@@ -7,7 +7,7 @@ import 'package:sanal_menu/controllers/cook_controller.dart';
 /*
 Displays Order with its name, quantity as well as a checkbox on the right side.
 Currently used inside below classes. 
-- CookOrders
+- CookOrderList
 - CookAssignmets
 - WaiterOrders
 - WaiterAssignments
@@ -30,21 +30,19 @@ class OrderTile extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(order.name),
-                          Text(order.deviceID),
+                          Text(order.name, style: Theme.of(context).textTheme.bodyText2),
+                          Text(order.deviceName, style: Theme.of(context).textTheme.bodyText2),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(order.quantity.toString() + " adet"),
-                          Text("Sipariş zamanı: " + order.getCreationTime()),
+                          Text(order.quantity.toString() + " adet", style: Theme.of(context).textTheme.caption),
+                          Text("Order time: " + order.getCreationTime(), style: Theme.of(context).textTheme.caption),
                         ],
                       ),
                     ],
                   ),
-                  //subtitle: Text(order.creationTime.toString()),
-                  //subtitle: Text(order.quantity.toString() + " adet"),
                   value: order.isSelected,
                   onChanged: (bool value) {
                     // Check order status to call correct funciton

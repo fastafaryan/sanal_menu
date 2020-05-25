@@ -5,20 +5,20 @@ import 'package:sanal_menu/views/admin/tabs/items/widgets/admin_item_tile.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:provider/provider.dart';
 
-class AdminItemsList extends StatelessWidget {
+class AdminItemList extends StatelessWidget {
   AsyncSnapshot snapshot;
-  AdminItemsList({this.snapshot});
+  AdminItemList({this.snapshot});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(horizontal:10, vertical: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              header1("Catalog Items"),
+              Text("Items", style: Theme.of(context).textTheme.subtitle1),
               IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {

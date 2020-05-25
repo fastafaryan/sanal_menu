@@ -1,7 +1,7 @@
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/cook/tabs/cook_assignments.dart';
-import 'package:sanal_menu/views/cook/tabs/cook_orders.dart';
+import 'package:sanal_menu/views/cook/tabs/cook_order_list.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:sanal_menu/views/shared/constants.dart';
@@ -32,7 +32,7 @@ class _CookHomeState extends State<CookHome> {
               stream: assignmets,
               builder: (context, assignment) {
                 final List<Widget> _children = [
-                  CookOrders(snapshot: orders),
+                  CookOrderList(snapshot: orders),
                   CookAssignment(snapshot: assignment),
                 ];
                 return Scaffold(
@@ -44,11 +44,11 @@ class _CookHomeState extends State<CookHome> {
                     items: [
                       BottomNavigationBarItem(
                         icon: new Icon(Icons.local_dining),
-                        title: new Text('Siparişler'),
+                        title: new Text('Customer Orders'),
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(Icons.room_service),
-                        title: Text('Servislerim'),
+                        title: Text('My Assignments'),
                       ),
                       
                     ],

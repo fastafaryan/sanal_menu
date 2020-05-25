@@ -27,13 +27,16 @@ class _SignInState extends State<SignIn> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
+                    // header
                     Text(
                       'Sign in',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.title,
                     ),
                     SizedBox(height: 10),
+                    // email
                     TextFormField(
                       decoration: inputDecoration.copyWith(labelText: 'Email'),
+                      keyboardType: TextInputType.emailAddress,
                       validator: (val) => val.isEmpty ? 'email field is missing' : null,
                       onChanged: (val) {
                         setState(() {
@@ -42,6 +45,7 @@ class _SignInState extends State<SignIn> {
                       },
                     ),
                     SizedBox(height: 10),
+                    // password
                     TextFormField(
                       decoration: inputDecoration.copyWith(labelText: 'Password'),
                       obscureText: true,
@@ -53,6 +57,7 @@ class _SignInState extends State<SignIn> {
                       },
                     ),
                     SizedBox(height: 10),
+                    // submit button
                     RaisedButton(
                       child: Text('Sign in', style: Theme.of(context).textTheme.button),
                       onPressed: () async {

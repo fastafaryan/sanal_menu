@@ -43,32 +43,31 @@ class Modifier extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            // DYNAMIC PRICE DISPLAY
-            Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  (item.price * o.data[0].quantity).toString() + " ₺",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-            ]),
-
             // MODIFIER
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                FlatButton(
-                  padding: EdgeInsets.fromLTRB(0, 0, 5.0, 0),
-                  child: Icon(Icons.remove),
-                  onPressed: () => CustomerController().modifyOrder(o.data[0].id, o.data[0].quantity - 1),
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () => CustomerController().modifyOrder(o.data[0], o.data[0].quantity - 1),
                 ),
-                Text(o.data[0].quantity.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                FlatButton(
-                  padding: EdgeInsets.fromLTRB(5.0, 0, 0, 0),
-                  child: Icon(Icons.add),
-                  onPressed: () => CustomerController().modifyOrder(o.data[0].id, o.data[0].quantity + 1),
+                Text(o.data[0].quantity.toString()),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => CustomerController().modifyOrder(o.data[0], o.data[0].quantity + 1),
+                ),
+              ],
+            ),
+
+            // DYNAMIC PRICE DISPLAY
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Text("Total price: \$" + (item.price * o.data[0].quantity).toString()),
                 ),
               ],
             ),

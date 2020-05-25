@@ -24,13 +24,13 @@ class ConfirmationPopup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text('No'),
+                  onPressed: () => Navigator.pop(context, true),
+                  child: Text('Yes', style: Theme.of(context).textTheme.button),
                 ),
                 SizedBox(width: 15),
                 RaisedButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text('Yes'),
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text('No', style: Theme.of(context).textTheme.button),
                 ),
               ],
             ),

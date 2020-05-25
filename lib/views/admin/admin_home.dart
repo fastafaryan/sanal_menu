@@ -6,7 +6,7 @@ import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/admin/tabs/devices/admin_device_list.dart';
 import 'package:sanal_menu/views/admin/tabs/devices/admin_add_device.dart';
 import 'package:sanal_menu/views/admin/tabs/items/admin_add_edit_item.dart';
-import 'package:sanal_menu/views/admin/tabs/items/admin_items_list.dart';
+import 'package:sanal_menu/views/admin/tabs/items/admin_item_list.dart';
 import 'package:sanal_menu/views/admin/tabs/users/admin_add_user.dart';
 import 'package:sanal_menu/views/admin/tabs/users/admin_user_list.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class AdminHome extends StatelessWidget {
                     final List<Widget> _children = [
                       // Visible tabs
                       AdminUserList(snapshot: users),
-                      AdminItemsList(snapshot: items),
+                      AdminItemList(snapshot: items),
                       AdminDeviceList(snapshot: devices),
 
                       // Hidden tabs
@@ -52,15 +52,15 @@ class AdminHome extends StatelessWidget {
                         items: [
                           BottomNavigationBarItem(
                             icon: new Icon(Icons.people),
-                            title: new Text('Çalışanlar'),
+                            title: new Text('Users'),
                           ),
                           BottomNavigationBarItem(
                             icon: new Icon(Icons.local_dining),
-                            title: new Text('Menü'),
+                            title: new Text('Catalog'),
                           ),
                           BottomNavigationBarItem(
                             icon: new Icon(Icons.devices),
-                            title: new Text('Cihazlar'),
+                            title: new Text('Devices'),
                           ),
                         ],
                       ),

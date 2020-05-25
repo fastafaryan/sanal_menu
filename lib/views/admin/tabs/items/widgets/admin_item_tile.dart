@@ -23,8 +23,8 @@ class AdminItemTile extends StatelessWidget {
             children: <Widget>[
               // Photo
               Container(
-                width: 100,
-                height: 100,
+                width: 75,
+                height: 75,
                 child: AspectRatio(
                   aspectRatio: .1,
                   child: FittedBox(
@@ -37,8 +37,8 @@ class AdminItemTile extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  header2(item.name),
-                  Text('\$'+item.price.toString()),
+                  Text(item.name, style: Theme.of(context).textTheme.bodyText1),
+                  Text('\$' + item.price.toString(), style: Theme.of(context).textTheme.bodyText2),
                 ],
               ),
             ],
@@ -60,7 +60,10 @@ class AdminItemTile extends StatelessWidget {
                   // If click on yes delete
                   if (result == true) {
                     String message = Provider.of<AdminItemController>(context, listen: false).deleteItem(item);
-                    Scaffold.of(context).showSnackBar(SnackBar(content: Text(message) ,backgroundColor: Colors.red[900],));
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text(message),
+                      backgroundColor: Colors.red[900],
+                    ));
                   }
                 },
               ),

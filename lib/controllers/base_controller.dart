@@ -33,9 +33,9 @@ class BaseController {
         deviceID: doc.data['deviceID'] ?? '',
         itemID: doc.data['itemID'],
         quantity: doc.data['quantity'] ?? 0,
-        status: doc.data['status'] ?? 'Belirsiz',
-        assignnee: doc.data['assignee'] ?? 'Belirsiz',
-        creationTime: DateTime.fromMillisecondsSinceEpoch(doc.data['timestamp'].millisecondsSinceEpoch, isUtc: true) ?? 'Belirsiz Oluşturulma Tarihi'
+        status: doc.data['status'] ?? '',
+        assignee: doc.data['assignee'] ?? '',
+        creationTime: doc.data['timestamp'] != null ? DateTime.fromMillisecondsSinceEpoch(doc.data['timestamp'].millisecondsSinceEpoch, isUtc: true) : DateTime.now()
       );
     }).toList();
   }

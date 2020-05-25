@@ -6,10 +6,31 @@
   <component name="ChangeListManager">
     <list default="true" id="47fa6e11-6344-4b20-88dd-d575d851289b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/devices/admin_add_device.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/tabs/devices/admin_add_device.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/admin/admin_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/admin/admin_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/base_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/base_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/customer_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/customer_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/stream_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/stream_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/customer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/customer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/order.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/order.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/admin/admin_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/admin_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/devices/admin_device_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/tabs/devices/admin_device_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/items/admin_add_edit_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/tabs/items/admin_add_edit_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/items/admin_items_list.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/items/widgets/admin_item_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/tabs/items/widgets/admin_item_tile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/users/admin_add_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/tabs/users/admin_add_user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/landing_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/landing_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/users/admin_user_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/tabs/users/admin_user_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/admin/tabs/users/widgets/admin_user_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/admin/tabs/users/widgets/admin_user_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/customer/customer_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/customer/customer_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/customer/tabs/cart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/customer/tabs/cart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/customer/tabs/orders.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/customer/tabs/orders.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/customer/widgets/cart_item.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/customer/widgets/order_item.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/shared/confirmation_popup.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/shared/confirmation_popup.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/shared/grid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/shared/grid.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/shared/modifier.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/shared/modifier.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/signin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/signin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -26,7 +47,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
@@ -102,8 +123,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -120,7 +142,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -171,6 +192,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15212765" />
       <window_info id="Captures" order="1" side_tool="true" />
