@@ -14,7 +14,7 @@ class CookHome extends StatefulWidget {
 class _CookHomeState extends State<CookHome> {
   int _currentIndex = 0;
   Stream<List<Order>> ordersStream = StreamController().allOrders;
-  Stream<List<Order>> assignmets = StreamController().cookAssignments;
+  Stream<List<Order>> assignments = StreamController().cookAssignments;
 
   // TAB SWITCHER
   void onTabTapped(int index) {
@@ -29,7 +29,7 @@ class _CookHomeState extends State<CookHome> {
         stream: ordersStream,
         builder: (context, orders) {
           return StreamBuilder(
-              stream: assignmets,
+              stream: assignments,
               builder: (context, assignment) {
                 final List<Widget> _children = [
                   CookOrderList(snapshot: orders),

@@ -33,23 +33,20 @@ class AdminController extends BaseController with ChangeNotifier {
   }
 
   Future addUser({String email, String pwd, String name, String role}) async {
-    FirebaseApp app = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
-    FirebaseAuth.fromApp(app).createUserWithEmailAndPassword(email: email, password: pwd).then((currentUser) {
-      if (currentUser == null) {
-        print("null current user");
-      } else {
-        Firestore.instance
-            .collection("users")
-            .document(currentUser.user.uid)
-            .setData({"uid": currentUser.user.uid, "name": name, "email": email, "role": role});
-      }
-    });
-    return "User added.";
+    try {
+      FirebaseApp app = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
+      AuthResult result = await FirebaseAuth.fromApp(app).createUserWithEmailAndPassword(email: email, password: pwd);
+      Firestore.instance.collection("users").document(result.user.uid).setData({"uid": result.user.uid, "name": name, "email": email, "role": role});
+      return {'type': MessageTypes.success, 'message': "User added."};
+    } catch (e) {
+      print("failed");
+      return {'type': MessageTypes.error, 'message': e.message};
+    }
   }
 
   Future deleteUser(String userID) async {
     //FirebaseApp app = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
-   // await FirebaseAuth.instance.signInWithEmailAndLink()
+    // await FirebaseAuth.instance.signInWithEmailAndLink()
     //usersCollection.document(userID).delete();
     return "This function is not available yet.";
   }
@@ -65,9 +62,9 @@ class AdminController extends BaseController with ChangeNotifier {
     // check query result and perform action base on that
     if (query.documents.isEmpty) {
       devicesCollection.add({'id': deviceID, 'name': name});
-      return "Yeni kayıt eklendi.";
+      return {'type': MessageTypes.success, 'message': "Device added."};
     } else {
-      return "Cihaz zaten kayıtlı.";
+      return {'type': MessageTypes.error, 'message': "Device already exists."};
     }
   }
 
@@ -76,13 +73,13 @@ class AdminController extends BaseController with ChangeNotifier {
     // get corresponding record in DB
     QuerySnapshot query = await devicesCollection.where('id', isEqualTo: deviceID).getDocuments();
     // check if record exists in DB
-    if (query.documents.isEmpty) return "Kayıtlı cihaz bulunamadı.";
+    if (query.documents.isEmpty) return "There is no such device.";
     // check if duplicate records exists. This shold not happen. If exists, check insert queries
-    if (query.documents.length > 1) return "Birden fazla aynı cihaz tanımlaması bulundu lütfen sistem yöneticiniz ile irtibat kurunuz.";
+    if (query.documents.length > 1) return "Duplicate records found.";
     // get document id then use it for deletion.
     String id = query.documents.first.documentID;
     devicesCollection.document(id).delete();
-    return "Cihaz kaydı silindi.";
+    return "Device removed.";
   }
 
   // Add a new device record to DB

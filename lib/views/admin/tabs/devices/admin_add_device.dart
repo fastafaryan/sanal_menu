@@ -2,6 +2,7 @@ import 'package:sanal_menu/controllers/admin/admin_controller.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sanal_menu/controllers/base_controller.dart';
 
 class AdminAddDevice extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -20,10 +21,13 @@ class AdminAddDevice extends StatelessWidget {
               children: <Widget>[
                 IconButton(
                   icon: Icon(Icons.arrow_back),
-                  onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('Users'),
+                  onPressed: () => Provider.of<AdminController>(context, listen: false).switchTabBody('Devices'),
                 ),
                 SizedBox(width: 20),
-                Text("Add Device", style: Theme.of(context).textTheme.headline6,)
+                Text(
+                  "Add Device",
+                  style: Theme.of(context).textTheme.headline6,
+                )
               ],
             ),
           ),
@@ -50,12 +54,14 @@ class AdminAddDevice extends StatelessWidget {
                         style: Theme.of(context).textTheme.button,
                       ),
                       onPressed: () async {
-                        String result = await AdminController().addDevice(name); // call addDevice function from controller
-                        AdminController().switchTabBody('Devices');
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(result),
-                          backgroundColor: Colors.green,
-                        )); // display message about result
+                        Map result = await AdminController().addDevice(name); // call addDevice function from controller
+
+                        if (result['type'] == MessageTypes.error) {
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text(result['message']), backgroundColor: Colors.red));
+                        } else if (result['type'] == MessageTypes.success) {
+                          Provider.of<AdminController>(context, listen: false).switchTabBody('Devices');
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text(result['message']), backgroundColor: Colors.green));
+                        }
                       }),
                   SizedBox(height: 12),
                   Text(

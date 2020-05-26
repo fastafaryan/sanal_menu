@@ -40,7 +40,7 @@ class Popup extends StatelessWidget {
                         padding: EdgeInsets.fromLTRB(0, 15.0, 0, 0),
                         child: Text(
                           item.name,
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.title
                         ),
                       ),
                     ],
@@ -50,8 +50,8 @@ class Popup extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 15.0, 0, 10),
                     child: Text(
-                      item.desc != null ? item.desc : 'Açıklama bulunmuyor.',
-                      style: TextStyle(fontSize: 20),
+                      item.desc != null ? item.desc : 'No description found.',
+                      style: Theme.of(context).textTheme.bodyText2
                     ),
                   ),
                   if (!isPreview)

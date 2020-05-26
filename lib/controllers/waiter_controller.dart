@@ -56,9 +56,10 @@ class WaiterController extends ChangeNotifier with BaseController{
 
     this._selectedOrders.clear(); // clears selected orders list
     notifyListeners(); // notifies listener widgets for update.
+    return "Orders are assigned.";
   }
 
-  void setAsServed() {
+  String setAsServed() {
     // runs a loop for each selected assignments. updates their status to ready and assignee to null
     this._selectedAssignments.forEach((order) {
       Firestore.instance.collection('orders').document(order.id).updateData({'assignee': null, 'status': 'Served'}); // update DB
@@ -67,5 +68,18 @@ class WaiterController extends ChangeNotifier with BaseController{
 
     this._selectedAssignments.clear(); // clears selected orders list
     notifyListeners(); // notifies listener widgets for update.
+    return "Orders are assigned as served";
+  }
+
+  // Release assignment
+  String releaseAssignments() {
+    // runs a loop for each selected orders. updates their assignee field to null.
+    this._selectedAssignments.forEach((order) {
+      order.setStatus('Ready');
+      order.setAssignee(null);
+      order.toggleSelection(); // set order model class value to false
+      order.update();
+    });
+    return "Order released.";
   }
 }

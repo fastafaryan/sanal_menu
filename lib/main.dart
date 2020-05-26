@@ -11,6 +11,7 @@ import 'package:sanal_menu/views/signup.dart';
 import 'package:sanal_menu/views/waiter/waiter_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sanal_menu/models/order.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (context) => LandingPage()),
+        ListenableProvider(create: (context) => Order()),
         ListenableProvider(create: (context) => CookController()),
         ListenableProvider(create: (context) => WaiterController()),
         ChangeNotifierProvider(create: (context) => AdminController()),

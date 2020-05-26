@@ -10,7 +10,7 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     if (snapshot.data == null || snapshot.data.length == 0) {
       return Center(
-        child: Text('Sepetiniz boş.'),
+        child: Text('Nothing to display.'),
       );
     }
 

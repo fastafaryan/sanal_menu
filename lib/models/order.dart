@@ -76,7 +76,7 @@ class Order extends ChangeNotifier {
   String _status;
   String get status => _status;
   void setStatus(String value) {
-    List<String> possibleValues = ['InCart', 'Ordered', 'Preparing', 'Ready', 'Serving', 'Served', 'Paid'];
+    List<String> possibleValues = ['InCart', 'Ordered', 'Preparing', 'Ready', 'Serving', 'Served', 'Paid', null];
     // If given parameter value is inside the list set value.
     if (possibleValues.contains(value))
       _status = value;

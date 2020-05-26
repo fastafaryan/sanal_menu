@@ -20,21 +20,31 @@ class WaiterOrder extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Siparişler', style: TextStyle(fontSize: 20),),
-                RaisedButton(
-                  child: Icon(Icons.done),
-                 onPressed: () async {
-                  final result = await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ConfirmationPopup(message: "Seçili siparişleri kendinize atamak istediğinize emin misiniz?");
-                      });
-                  if (result == true) Provider.of<WaiterController>(context, listen: false).startService();
-                }
+                Text(
+                  'Orders',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                IconButton(
+                  icon: Icon(Icons.done),
+                  onPressed: () async {
+                    final result = await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ConfirmationPopup(message: "Do you wish to assign these orders to yourself?");
+                        });
+                    if (result == true) {
+                      String result = await Provider.of<WaiterController>(context, listen: false).startService();
+                      // Display meesage based on result
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text(result),
+                        backgroundColor: Colors.green,
+                      ));
+                    }
+                  },
                 ),
               ],
             ),

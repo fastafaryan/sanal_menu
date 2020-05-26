@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/models/user.dart';
+
+enum MessageTypes { success, error, warning, info }
 
 class BaseController {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -28,16 +31,24 @@ class BaseController {
   // MAP FIREBASE SNAPSHOT TO ORDER CLASS
   List<Order> ordersFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      return Order(
-        id: doc.documentID ?? '',
-        deviceID: doc.data['deviceID'] ?? '',
-        itemID: doc.data['itemID'],
-        quantity: doc.data['quantity'] ?? 0,
-        status: doc.data['status'] ?? '',
-        assignee: doc.data['assignee'] ?? '',
-        creationTime: doc.data['timestamp'] != null ? DateTime.fromMillisecondsSinceEpoch(doc.data['timestamp'].millisecondsSinceEpoch, isUtc: true) : DateTime.now()
-      );
+      return orderFromSnapshot(doc);
     }).toList();
+  }
+
+  Order orderFromSnapshot(DocumentSnapshot doc) {
+    //Item item = await StreamController().getItemByID(doc.data['itemID']);
+    return Order(
+      //name: item.name,
+      id: doc.documentID ?? '',
+      deviceID: doc.data['deviceID'] ?? '',
+      itemID: doc.data['itemID'],
+      quantity: doc.data['quantity'] ?? 0,
+      status: doc.data['status'] ?? '',
+      assignee: doc.data['assignee'] ?? '',
+      creationTime: doc.data['timestamp'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(doc.data['timestamp'].millisecondsSinceEpoch, isUtc: true)
+          : DateTime.now(),
+    );
   }
 
   // MAP FIREBASE SNAPSHOT TO USER CLASS
@@ -59,9 +70,8 @@ class BaseController {
     }
   }
 
-  // removes given order from given list 
+  // removes given order from given list
   void removeOrder(List<Order> list, Order order) {
     list.remove(order);
   }
-
 }

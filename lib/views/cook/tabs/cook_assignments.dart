@@ -28,9 +28,9 @@ class CookAssignment extends StatelessWidget {
                 "My Assignments",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              // Release button
               Row(
                 children: <Widget>[
+                  // Release button
                   IconButton(
                     icon: Icon(Icons.settings_backup_restore),
                     onPressed: () async {
@@ -42,10 +42,12 @@ class CookAssignment extends StatelessWidget {
                       if (result == true) {
                         String result = Provider.of<CookController>(context, listen: false).releaseAssignments();
                         // Display meesage based on result
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(result),
-                          backgroundColor: Colors.green,
-                        ));
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(result),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
                       }
                     },
                   ),
@@ -54,17 +56,20 @@ class CookAssignment extends StatelessWidget {
                     icon: Icon(Icons.done),
                     onPressed: () async {
                       final result = await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return ConfirmationPopup(message: "Do you want to set these orders as ready?");
-                          });
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ConfirmationPopup(message: "Do you want to set these orders as ready?");
+                        },
+                      );
                       if (result == true) {
                         String result = Provider.of<CookController>(context, listen: false).setAsReady();
                         // Display meesage based on result
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(result),
-                          backgroundColor: Colors.green,
-                        ));
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(result),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
                       }
                     },
                   ),

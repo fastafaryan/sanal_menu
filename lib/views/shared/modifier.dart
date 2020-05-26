@@ -29,9 +29,9 @@ class Modifier extends StatelessWidget {
 
           return Column(
             children: <Widget>[
-              Text(item.price.toString() + " ₺", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(item.price.toString() + " ₺", style: Theme.of(context).textTheme.subtitle2),
               RaisedButton(
-                child: Text('Sipariş ver', style: Theme.of(context).textTheme.button),
+                child: Text('Order', style: Theme.of(context).textTheme.button),
                 onPressed: () => CustomerController().addToCart(item.id),
               ),
             ],

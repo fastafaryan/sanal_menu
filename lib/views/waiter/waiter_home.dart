@@ -1,3 +1,4 @@
+import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/controllers/waiter_controller.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
@@ -12,8 +13,8 @@ class WaiterHome extends StatefulWidget {
 
 class _WaiterHomeState extends State<WaiterHome> {
   int _currentIndex = 0;
-  Stream<List<Order>> readyOrders = WaiterController().readyOrders;
-  Stream<List<Order>> assignments = WaiterController().assignments;
+  Stream<List<Order>> readyOrders = StreamController().readyOrders;
+  Stream<List<Order>> assignments = StreamController().assignments;
 
   // TAB SWITCHER
   void onTabTapped(int index) {
@@ -32,7 +33,7 @@ class _WaiterHomeState extends State<WaiterHome> {
           builder: (context, assignment) {
             final List<Widget> _children = [
               WaiterOrder(snapshot: orders),
-              Text('Hesap Ödeme Talepleri'),
+              Text('Payment Requests'),
               WaiterAssignments(snapshot: assignment),
             ];
             return Scaffold(
@@ -44,15 +45,15 @@ class _WaiterHomeState extends State<WaiterHome> {
                 items: [
                   BottomNavigationBarItem(
                     icon: new Icon(Icons.local_dining),
-                    title: new Text('Hazır Siparişler'),
+                    title: new Text('Ready Orders'),
                   ),
                   BottomNavigationBarItem(
                     icon: new Icon(Icons.attach_money),
-                    title: new Text('Hesap Ödeme Talepleri'),
+                    title: new Text('Payments Requests'),
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.room_service),
-                    title: Text('Servislerim'),
+                    title: Text('Assignments'),
                   )
                 ],
               ),

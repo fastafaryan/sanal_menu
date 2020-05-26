@@ -46,7 +46,6 @@ class CookController extends ChangeNotifier with BaseController {
     this._selectedOrders.clear(); // clears selected orders list
     notifyListeners(); // notifies listener widgets for update.
     return "Orders are assigned to you successfully.";
-
   }
 
   String setAsReady() {

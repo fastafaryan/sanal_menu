@@ -1,4 +1,5 @@
 import 'package:sanal_menu/controllers/admin/admin_controller.dart';
+import 'package:sanal_menu/controllers/base_controller.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -101,14 +102,14 @@ class _AdminAddUserState extends State<AdminAddUser> {
                     child: Text('Add', style: Theme.of(context).textTheme.button),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        String result = await AdminController().addUser(email: email, pwd: password, name: name, role: role);
-                        // Switch tab body back to list.
-                        Provider.of<AdminController>(context, listen: false).switchTabBody('Users');
-                        // Display meesage based on result
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(result),
-                          backgroundColor: Colors.green,
-                        ));
+                        Map result = await AdminController().addUser(email: email, pwd: password, name: name, role: role);
+                        
+                        if (result['type'] == MessageTypes.error) {
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text(result['message']), backgroundColor: Colors.red));
+                        } else if (result['type'] == MessageTypes.success) {
+                          Provider.of<AdminController>(context, listen: false).switchTabBody('Users');
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text(result['message']), backgroundColor: Colors.green));
+                        }
                       }
                     },
                     //

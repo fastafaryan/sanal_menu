@@ -12,7 +12,7 @@ class WaiterAssignments extends StatelessWidget {
   Widget build(BuildContext context) {
     if (snapshot == null || snapshot.data == null || snapshot.data.length == 0) {
       return Center(
-        child: Text('Sipariş bulunmuyor.'),
+        child: Text('Nothing to display.'),
       );
     }
 
@@ -20,21 +20,50 @@ class WaiterAssignments extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Siparişler', style: TextStyle(fontSize: 20),),
-                RaisedButton(
-                  child: Icon(Icons.done),
-                 onPressed: () async {
-                  final result = await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ConfirmationPopup(message: "Seçili siparişleri teslim edildi olarak güncellemek istediğinize emin misiniz?");
-                      });
-                  if (result == true) Provider.of<WaiterController>(context, listen: false).setAsServed();
-                }
+                Text(
+                  'Siparişler',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Row(
+                  children: <Widget>[
+                    // Release button
+                    IconButton(
+                      icon: Icon(Icons.settings_backup_restore),
+                      onPressed: () async {
+                        final result = await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ConfirmationPopup(message: "Do you want to release these orders?");
+                            });
+                        if (result == true) {
+                          String result = Provider.of<WaiterController>(context, listen: false).releaseAssignments();
+                          // Display meesage based on result
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(result),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    // Done button
+                    IconButton(
+                      icon: Icon(Icons.done),
+                      onPressed: () async {
+                        final result = await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ConfirmationPopup(message: "Seçili siparişleri teslim edildi olarak güncellemek istediğinize emin misiniz?");
+                            });
+                        if (result == true) Provider.of<WaiterController>(context, listen: false).setAsServed();
+                      },
+                    )
+                  ],
                 ),
               ],
             ),
