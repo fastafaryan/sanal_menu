@@ -13,17 +13,17 @@ class StreamController extends BaseController {
   AuthController _authService = AuthController();
 
   // STREAM OF ALL CURRENT USER CART ITEMS
-  Stream<List<Order>> get userCartItems async* {
+  Stream<List<Future<Order>>> get userCartItems async* {
     String deviceID = await DeviceId.getID;
     yield* ordersCollection.where('deviceID', isEqualTo: deviceID).where('status', isEqualTo: 'InCart').snapshots().map(ordersFromSnapshot);
   }
 
   // STREAM OF CURRENT USER ORDERS
-  Stream<List<Order>> get userOrders async* {
+  Stream<List<Future<Order>>> get userOrders async* {
     String deviceID = await DeviceId.getID;
     yield* ordersCollection
         .where('deviceID', isEqualTo: deviceID)
-        .where('status', whereIn: ['Ordered','Preparing','Ready','Serving','Served'])
+        .where('status', whereIn: ['Ordered', 'Preparing', 'Ready', 'Serving', 'Served'])
         .snapshots()
         .map(ordersFromSnapshot);
   }
@@ -33,11 +33,15 @@ class StreamController extends BaseController {
     return usersCollection.snapshots().map(usersFromSnapshot);
   }
 
-  Stream<List<Order>> get allOrders {
+  Stream<List<Future<Order>>> get test {
+    return ordersCollection.where('status', whereIn: ['Ordered', 'Preparing', 'Ready', 'Serving', 'Served']).snapshots().map((ordersFromSnapshot));
+  }
+
+  Stream<List<Future<Order>>> get allOrders {
     return ordersCollection.where('status', isEqualTo: "Ordered").snapshots().map((ordersFromSnapshot));
   }
 
-  Stream<List<Order>> get cookAssignments async* {
+  Stream<List<Future<Order>>> get cookAssignments async* {
     String uid = await _authService.getCurrentUserId();
     yield* ordersCollection.where('status', isEqualTo: "Preparing").where('assignee', isEqualTo: uid).snapshots().map(ordersFromSnapshot);
   }
@@ -47,7 +51,7 @@ class StreamController extends BaseController {
     yield* usersCollection.where('uid', isEqualTo: uid).snapshots().map(usersFromSnapshot);
   }
 
-  Stream<List<Order>> getOrderByItem(String itemID) async* {
+  Stream<List<Future<Order>>> getOrderByItemID(String itemID) async* {
     String deviceID = await DeviceId.getID;
     yield* ordersCollection.where('deviceID', isEqualTo: deviceID).where('itemID', isEqualTo: itemID).snapshots().map(ordersFromSnapshot);
   }
@@ -98,13 +102,23 @@ class StreamController extends BaseController {
   }
 
   // Stream for prepared food for serving.
-  Stream<List<Order>> get readyOrders {
-    return ordersCollection.where('status', isEqualTo: 'Ready').where('assignee', isEqualTo: null).orderBy('timestamp', descending: false).snapshots().map(ordersFromSnapshot);
+  Stream<List<Future<Order>>> get readyOrders {
+    return ordersCollection
+        .where('status', isEqualTo: 'Ready')
+        .where('assignee', isEqualTo: null)
+        .orderBy('timestamp', descending: false)
+        .snapshots()
+        .map(ordersFromSnapshot);
   }
 
   // Stream for prepared food for serving.
-  Stream<List<Order>> get assignments async*{
+  Stream<List<Future<Order>>> get assignments async* {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser(); // gets current user.
-    yield* ordersCollection.where('status', isEqualTo: 'Serving').where('assignee', isEqualTo: user.uid).orderBy('timestamp', descending: false).snapshots().map(ordersFromSnapshot);
+    yield* ordersCollection
+        .where('status', isEqualTo: 'Serving')
+        .where('assignee', isEqualTo: user.uid)
+        .orderBy('timestamp', descending: false)
+        .snapshots()
+        .map(ordersFromSnapshot);
   }
 }

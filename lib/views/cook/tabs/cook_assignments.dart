@@ -82,7 +82,7 @@ class CookAssignment extends StatelessWidget {
           child: ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (BuildContext context, int index) {
-              return OrderTile(order: snapshot.data[index]);
+              return OrderTile(orderFuture: snapshot.data[index]);
             },
           ),
         ),

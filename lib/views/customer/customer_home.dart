@@ -25,8 +25,8 @@ class _CustomerHomeState extends State<CustomerHome> {
   int _currentIndex = 0;
 
   Stream<List<Item>> itemStream = StreamController().menuItems;
-  Stream<List<Order>> cartStream = StreamController().userCartItems;
-  Stream<List<Order>> orderStream = StreamController().userOrders;
+  Stream<List<Future<Order>>> cartStream = StreamController().userCartItems;
+  Stream<List<Future<Order>>> orderStream = StreamController().userOrders;
 
   // TAB SWITCHER
   void onTabTapped(int index) {

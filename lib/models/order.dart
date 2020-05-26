@@ -2,19 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Order extends ChangeNotifier {
-  Order({this.id, this.deviceID, this.itemID, this.creationTime, int quantity, String status, String assignee}) {
+class Order {
+  Order({this.id, this.deviceID, this.itemID, this.creationTime, this.name, this.deviceName, int quantity, String status, String assignee}) {
     setQuantity(quantity);
     setStatus(status);
     setAssignee(assignee);
-    // Accesing to item name which this order
-    StreamController().getItemByID(itemID).then((item) {
-      setName(item.name);
-    });
-    // Accesing to device name which owns this order.
-    StreamController().getDeviceByID(deviceID).then((device) {
-      setDeviceName(device.name);
-    });
   }
 
   // Unique id of this record on Firebase.
@@ -24,26 +16,15 @@ class Order extends ChangeNotifier {
   String deviceID;
 
   // Holds device display name.
-  String _deviceName = 'Unknown';
-  String get deviceName => _deviceName;
-  void setDeviceName(String value) {
-    _deviceName = value;
-    notifyListeners();
-  }
+  String deviceName = 'Unknown';
 
   // Holds catalog item id which this order record represents.
   String itemID;
 
   bool isSelected = false;
 
-  // Name of the catalog item. This column does not exist in Firebase.
-  // Thus it is accessed by matching itemID on items collection.
-  String _name = "Unknown";
-  String get name => _name;
-  void setName(String value) {
-    _name = value;
-    notifyListeners();
-  }
+  // Name of the catalog item. This column does not exist in Firebase. It is obtain from stream object mapping.
+  String name = "Unknown";
 
   // Holds order confirmation timestamp.
   DateTime creationTime;

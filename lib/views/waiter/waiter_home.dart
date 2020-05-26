@@ -13,8 +13,8 @@ class WaiterHome extends StatefulWidget {
 
 class _WaiterHomeState extends State<WaiterHome> {
   int _currentIndex = 0;
-  Stream<List<Order>> readyOrders = StreamController().readyOrders;
-  Stream<List<Order>> assignments = StreamController().assignments;
+  Stream<List<Future<Order>>> readyOrders = StreamController().readyOrders;
+  Stream<List<Future<Order>>> assignments = StreamController().assignments;
 
   // TAB SWITCHER
   void onTabTapped(int index) {

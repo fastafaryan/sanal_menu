@@ -17,7 +17,7 @@ class OrdersView extends StatelessWidget {
       itemCount: snapshot.data.length,
       itemBuilder: (_, int index) {
         //return Text("Order Item");
-        return CustomerOrderTile(order: snapshot.data[index]);
+        return CustomerOrderTile(orderFuture: snapshot.data[index]);
       },
     );
   }

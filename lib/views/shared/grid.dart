@@ -30,7 +30,7 @@ class Grid extends StatelessWidget {
       height: 500,
       width: 500,
       decoration: BoxDecoration(
-        border: Border.all(width: .5, color: Colors.grey),
+        border: Border.all(width: .25, color: Colors.grey),
       ),
       child: FlatButton(
         padding: EdgeInsets.all(0),

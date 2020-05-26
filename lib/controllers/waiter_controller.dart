@@ -10,12 +10,12 @@ class WaiterController extends ChangeNotifier with BaseController{
   final List<Order> _selectedAssignments = [];
 
   // Stream for prepared food for serving.
-  Stream<List<Order>> get readyOrders {
+  Stream<List<Future<Order>>> get readyOrders {
     return ordersCollection.where('status', isEqualTo: 'Ready').where('assignee', isEqualTo: null).orderBy('timestamp', descending: false).snapshots().map(ordersFromSnapshot);
   }
 
   // Stream for prepared food for serving.
-  Stream<List<Order>> get assignments async*{
+  Stream<List<Future<Order>>> get assignments async*{
     final FirebaseUser user = await FirebaseAuth.instance.currentUser(); // gets current user.
     yield* ordersCollection.where('status', isEqualTo: 'Serving').where('assignee', isEqualTo: user.uid).orderBy('timestamp', descending: false).snapshots().map(ordersFromSnapshot);
   }

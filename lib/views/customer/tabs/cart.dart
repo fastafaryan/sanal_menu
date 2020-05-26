@@ -21,7 +21,7 @@ class Cart extends StatelessWidget {
             child: ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (_, int index) {
-                return CustomerCartItemTile(order: snapshot.data[index]);
+                return CustomerCartItemTile(orderFuture: snapshot.data[index]);
               },
             ),
           ),

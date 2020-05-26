@@ -1,5 +1,6 @@
 import 'package:sanal_menu/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const inputDecoration = InputDecoration(
   filled: true,
@@ -53,16 +54,13 @@ AppBar appBarNonAuth(BuildContext context) {
   );
 }
 
-Text header1(String str) {
-  return Text(
-    str,
-    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17.5),
-  );
-}
-
-Text header2(String str) {
-  return Text(
-    str,
-    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+// Circle to display on loading screen
+Padding loadingCircle() {
+  return Padding(
+    padding: EdgeInsets.all(15),
+    child: SpinKitRing(
+      color: Colors.red[900],
+      size: 40.0,
+    ),
   );
 }

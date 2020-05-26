@@ -4,7 +4,7 @@ import 'package:sanal_menu/controllers/customer_controller.dart';
 import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sanal_menu/views/shared/constants.dart';
 
 class Modifier extends StatelessWidget {
   final Item item;
@@ -12,21 +12,11 @@ class Modifier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Stream<List<Order>> order = StreamController().getOrderByItem(item.id);
-
+    Stream<List<Future<Order>>> orderStream = StreamController().getOrderByItemID(item.id);
     return StreamBuilder(
-      stream: order,
-      builder: (context, o) {
-        // CHECK IF ANY DATA EXIST IN THE STREAM. IF IT DOES NOT EXIST THAT MEANS USER HAS NOT ORDERED FROM THIS ITEM BEFORE
-        if (o.data == null || o.data.length == 0) {
-          // CHECK IF DATA IS LOADED OR NOT
-          if (o.connectionState == ConnectionState.waiting) {
-            return SpinKitRing(
-              color: Colors.black,
-              size: 50.0,
-            );
-          }
-
+      stream: orderStream,
+      builder: (context, orderFuture) {
+        if (orderFuture == null || orderFuture.data == null || orderFuture.data.length == 0) {
           return Column(
             children: <Widget>[
               Text(item.price.toString() + " ₺", style: Theme.of(context).textTheme.subtitle2),
@@ -38,42 +28,63 @@ class Modifier extends StatelessWidget {
           );
         }
 
-        // IF ORDER EXIST IN DB DISPLAY BELOW
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            // MODIFIER
-            Row(
+        return FutureBuilder(
+          future: orderFuture.data[0],
+          builder: (context, order) {
+            if (order == null || order.data == null) {
+              return loadingCircle();
+            }
+            // IF ORDER EXIST IN DB DISPLAY BELOW
+            return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.remove),
-                  onPressed: () => CustomerController().modifyOrder(o.data[0], o.data[0].quantity - 1),
+                // MODIFIER
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () => CustomerController().modifyOrder(order.data, order.data.quantity - 1),
+                    ),
+                    Text(order.data.quantity.toString()),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () => CustomerController().modifyOrder(order.data, order.data.quantity + 1),
+                    ),
+                  ],
                 ),
-                Text(o.data[0].quantity.toString()),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => CustomerController().modifyOrder(o.data[0], o.data[0].quantity + 1),
-                ),
-              ],
-            ),
 
-            // DYNAMIC PRICE DISPLAY
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(right: 10),
-                  child: Text("Total price: \$" + (item.price * o.data[0].quantity).toString()),
+                // DYNAMIC PRICE DISPLAY
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Text("Total price: \$" + (item.price * order.data.quantity).toString()),
+                    ),
+                  ],
                 ),
               ],
-            ),
-          ],
+            );
+          },
         );
       },
     );
   }
 }
+/*
+switch (order.connectionState) {
+          case ConnectionState.waiting:
+            return loadingCircle();
+          default:
+            if (order == null || order.data == null) {
+              
+            } else if (order.hasError)
+              return Text('Error: ${order.error}');
+            else {
+              
+            }
+        }*/

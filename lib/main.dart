@@ -8,6 +8,7 @@ import 'package:sanal_menu/views/cook/cook_home.dart';
 import 'package:sanal_menu/views/landing_page.dart';
 import 'package:sanal_menu/views/signin.dart';
 import 'package:sanal_menu/views/signup.dart';
+import 'package:sanal_menu/views/test.dart';
 import 'package:sanal_menu/views/waiter/waiter_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (context) => LandingPage()),
-        ListenableProvider(create: (context) => Order()),
         ListenableProvider(create: (context) => CookController()),
         ListenableProvider(create: (context) => WaiterController()),
         ChangeNotifierProvider(create: (context) => AdminController()),
@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
           "/admin": (BuildContext context) => new AdminHome(),
           "/signup": (BuildContext context) => new SignUp(),
           "/signin": (BuildContext context) => new SignIn(),
+          "/test": (BuildContext context) => new Test(),
           //add more routes here
         },
       ),

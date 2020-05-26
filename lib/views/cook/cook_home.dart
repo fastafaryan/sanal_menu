@@ -13,8 +13,8 @@ class CookHome extends StatefulWidget {
 
 class _CookHomeState extends State<CookHome> {
   int _currentIndex = 0;
-  Stream<List<Order>> ordersStream = StreamController().allOrders;
-  Stream<List<Order>> assignments = StreamController().cookAssignments;
+  Stream<List<Future<Order>>> ordersStream = StreamController().allOrders;
+  Stream<List<Future<Order>>> assignments = StreamController().cookAssignments;
 
   // TAB SWITCHER
   void onTabTapped(int index) {

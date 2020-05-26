@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sanal_menu/controllers/stream_controller.dart';
+import 'package:sanal_menu/models/device.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/models/user.dart';
@@ -29,17 +30,16 @@ class BaseController {
   }
 
   // MAP FIREBASE SNAPSHOT TO ORDER CLASS
-  List<Order> ordersFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return orderFromSnapshot(doc);
-    }).toList();
+  List<Future<Order>> ordersFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map(orderFromSnapshot).toList();
   }
 
-  Order orderFromSnapshot(DocumentSnapshot doc) {
-    //Item item = await StreamController().getItemByID(doc.data['itemID']);
+  Future<Order> orderFromSnapshot(DocumentSnapshot doc) async {
+    Item item = await StreamController().getItemByID(doc['itemID']);
+    Device device = await StreamController().getDeviceByID(doc['deviceID']);
     return Order(
-      //name: item.name,
       id: doc.documentID ?? '',
+      deviceName: device.name ?? '', 
       deviceID: doc.data['deviceID'] ?? '',
       itemID: doc.data['itemID'],
       quantity: doc.data['quantity'] ?? 0,
@@ -48,6 +48,7 @@ class BaseController {
       creationTime: doc.data['timestamp'] != null
           ? DateTime.fromMillisecondsSinceEpoch(doc.data['timestamp'].millisecondsSinceEpoch, isUtc: true)
           : DateTime.now(),
+      name: item.name ?? 'Unknown',
     );
   }
 

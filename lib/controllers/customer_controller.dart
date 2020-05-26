@@ -29,10 +29,12 @@ class CustomerController {
   }
 
   // COMFIRM ALL ORDERS INSIDE THE CART.
-  void completeOrders(List<Order> orders) {
-    orders.forEach((element) {
-      element.setStatus('Ordered');
-      element.update();
+  void completeOrders(List<Future<Order>> orders) {
+    orders.forEach((futures) {
+      futures.then((orders) {
+        orders.setStatus('Ordered');
+        orders.update();
+      });
     });
   }
 }
