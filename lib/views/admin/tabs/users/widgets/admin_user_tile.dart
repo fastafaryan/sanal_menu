@@ -3,6 +3,8 @@ import 'package:sanal_menu/controllers/admin/admin_controller.dart';
 import 'package:sanal_menu/views/shared/confirmation_popup.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:sanal_menu/controllers/admin/admin_user_controller.dart';
+import 'package:provider/provider.dart';
 
 class AdminUserTile extends StatelessWidget {
   User user;
@@ -45,7 +47,7 @@ class AdminUserTile extends StatelessWidget {
                     );
                     // If clicked on yes button then delete
                     if (result == true) {
-                      String message = await AdminController().deleteUser(user.id);
+                      String message = await AdminUserController().deleteUser(user.id);
                       Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(message),
                         backgroundColor: Theme.of(context).accentColor,
@@ -54,7 +56,13 @@ class AdminUserTile extends StatelessWidget {
                   },
                 ),
                 // EDIT USER BUTTON
-                IconButton(icon: Icon(Icons.edit), onPressed: null),
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Provider.of<AdminController>(context, listen: false).switchTabBody('AddEditUser'); // Switch tab.
+                    Provider.of<AdminUserController>(context, listen: false).user = user; // Assign selected user values to controller variable.
+                  },
+                ),
               ],
             ),
           ],

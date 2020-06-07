@@ -7,14 +7,15 @@ import 'package:sanal_menu/views/admin/tabs/devices/admin_device_list.dart';
 import 'package:sanal_menu/views/admin/tabs/devices/admin_add_device.dart';
 import 'package:sanal_menu/views/admin/tabs/items/admin_add_edit_item.dart';
 import 'package:sanal_menu/views/admin/tabs/items/admin_item_list.dart';
-import 'package:sanal_menu/views/admin/tabs/users/admin_add_user.dart';
+import 'package:sanal_menu/views/admin/tabs/users/admin_add_edit_user.dart';
 import 'package:sanal_menu/views/admin/tabs/users/admin_user_list.dart';
 import 'package:flutter/material.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:provider/provider.dart';
 
 class AdminHome extends StatelessWidget {
-  Stream<List<User>> usersStream = StreamController().users;
+
+  Stream<List<User>> usersStream = StreamController().adminAllUsers;
   Stream<List<Item>> itemStream = StreamController().menuItems;
   Stream<List<Device>> devicesStream = StreamController().devices;
 
@@ -37,7 +38,7 @@ class AdminHome extends StatelessWidget {
                       AdminDeviceList(snapshot: devices),
 
                       // Hidden tabs
-                      AdminAddUser(), // index 3
+                      AdminAddEditUser(), // index 3
                       AdminAddEditItem(), // index 4
                       AdminAddDevice(), // index 5
                     ];

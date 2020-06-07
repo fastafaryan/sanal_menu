@@ -1,4 +1,5 @@
 import 'package:sanal_menu/controllers/admin/admin_controller.dart';
+import 'package:sanal_menu/controllers/admin/admin_user_controller.dart';
 import 'package:sanal_menu/controllers/base_controller.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,12 @@ class _AdminAddUserState extends State<AdminAddUser> {
                   Text(
                     "Add New User",
                     style: Theme.of(context).textTheme.headline6,
-                  )
+                  ),
+                  SizedBox(width: 20),
+                  IconButton(
+                    icon: Icon(Icons.whatshot),
+                    onPressed: () => Provider.of<AdminController>(context, listen: false).test(),
+                  ),
                 ],
               ),
             ),
@@ -102,7 +108,7 @@ class _AdminAddUserState extends State<AdminAddUser> {
                     child: Text('Add', style: Theme.of(context).textTheme.button),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        Map result = await AdminController().addUser(email: email, pwd: password, name: name, role: role);
+                        Map result = await AdminUserController().addEditUser();
                         
                         if (result['type'] == MessageTypes.error) {
                           Scaffold.of(context).showSnackBar(SnackBar(content: Text(result['message']), backgroundColor: Colors.red));

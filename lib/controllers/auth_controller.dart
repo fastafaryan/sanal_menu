@@ -44,6 +44,9 @@ class AuthController {
   // sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
+      FirebaseUser previousUser = await FirebaseAuth.instance.currentUser();
+      if (previousUser.isAnonymous) previousUser.delete();
+
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       return user;

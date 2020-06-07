@@ -20,11 +20,11 @@ class CustomerOrderTile extends StatelessWidget {
           return loadingCircle();
         }
 
-        Future<Item> item = StreamController().getItemByID(order.data.itemID);
+        Future<Item> itemFuture = StreamController().getItemByID(order.data.itemID);
         return FutureBuilder(
-          future: item,
-          builder: (context, i) {
-            if (i == null || i.data == null) {
+          future: itemFuture,
+          builder: (context, item) {
+            if (item == null || item.data == null) {
               return loadingCircle();
             }
 
@@ -39,12 +39,12 @@ class CustomerOrderTile extends StatelessWidget {
                     children: <Widget>[
                       // Photo
                       Container(
-                        width: 75,
-                        height: 75,
+                        width: 100,
+                        height: 100,
                         child: AspectRatio(
                           aspectRatio: .1,
                           child: FittedBox(
-                            child: Image.network(i.data.image),
+                            child: Image.network(item.data.image),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -53,9 +53,11 @@ class CustomerOrderTile extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(i.data.name, style: Theme.of(context).textTheme.bodyText1),
-                          Text("Status: " + order.data.status, style: Theme.of(context).textTheme.bodyText2),
-                          Text("Assignee: " + order.data.assignee, style: Theme.of(context).textTheme.bodyText2),
+                          Text(order.data.itemName, style: Theme.of(context).textTheme.bodyText1),
+                          Text("Status: " + order.data.status, style: Theme.of(context).textTheme.caption),
+                          Text("Assignee: " + order.data.assignee, style: Theme.of(context).textTheme.caption),
+                          Text("Quantity: " + order.data.quantity.toString(), style: Theme.of(context).textTheme.caption),
+                          Text("Total Price: " + "\$"+(order.data.itemPrice * order.data.quantity).toString(), style: Theme.of(context).textTheme.caption),
                         ],
                       ),
                     ],
@@ -64,17 +66,19 @@ class CustomerOrderTile extends StatelessWidget {
                   // RIGHT SIDE OF THE TILE
                   Row(
                     children: <Widget>[
-                      FlatButton(
-                        child: Icon(Icons.delete_outline),
-                        onPressed: () async {
-                          final result = await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ConfirmationPopup(message: "Do you wish to cancel?");
-                              });
-                          if (result == true) CustomerController().deleteOrder(order.data);
-                        },
-                      ),
+                      // CANCEL ORDER BUTTON. DISPLAYED IF ORDER IS NOT STARTED TO BEING PREPARED.
+                      if (order.data.status == 'Ordered')
+                        FlatButton(
+                          child: Icon(Icons.delete_outline),
+                          onPressed: () async {
+                            final result = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ConfirmationPopup(message: "Do you wish to cancel?");
+                                });
+                            if (result == true) CustomerController().deleteOrder(order.data);
+                          },
+                        )
                     ],
                   )
                 ],

@@ -69,7 +69,7 @@ class _SignInState extends State<SignIn> {
                               error = 'Wrong credentials!';
                             });
                           } else {
-                            Navigator.pushReplacementNamed(context, '/landingPage');
+                            Navigator.pushReplacementNamed(context, '/landing_page');
                           }
                         }
                       },

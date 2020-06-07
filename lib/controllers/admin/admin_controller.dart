@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:sanal_menu/controllers/base_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:device_id/device_id.dart';
 
@@ -25,31 +23,14 @@ class AdminController extends BaseController with ChangeNotifier {
     if (tab == 'Users') index = 0;
     if (tab == 'Items') index = 1;
     if (tab == 'Devices') index = 2;
-    if (tab == 'AddUser') index = 3;
+    if (tab == 'AddEditUser') index = 3;
     if (tab == 'AddEditItem') index = 4;
     if (tab == 'AddDevice') index = 5;
     _tabIndex = index;
     notifyListeners();
   }
 
-  Future addUser({String email, String pwd, String name, String role}) async {
-    try {
-      FirebaseApp app = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
-      AuthResult result = await FirebaseAuth.fromApp(app).createUserWithEmailAndPassword(email: email, password: pwd);
-      Firestore.instance.collection("users").document(result.user.uid).setData({"uid": result.user.uid, "name": name, "email": email, "role": role});
-      return {'type': MessageTypes.success, 'message': "User added."};
-    } catch (e) {
-      print("failed");
-      return {'type': MessageTypes.error, 'message': e.message};
-    }
-  }
-
-  Future deleteUser(String userID) async {
-    //FirebaseApp app = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
-    // await FirebaseAuth.instance.signInWithEmailAndLink()
-    //usersCollection.document(userID).delete();
-    return "This function is not available yet.";
-  }
+  
 
   // Add a new device record to DB
   Future addDevice(String name) async {

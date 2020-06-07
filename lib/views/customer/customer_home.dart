@@ -1,4 +1,3 @@
-import 'package:sanal_menu/controllers/auth_controller.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/views/customer/tabs/cart.dart';
@@ -7,16 +6,8 @@ import 'package:sanal_menu/views/customer/tabs/orders.dart';
 import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class CustomerHome extends StatefulWidget {
-  // Default construtor
-  CustomerHome() {
-    if (FirebaseAuth.instance.currentUser() == null) {
-      AuthController().signInAnonymously();
-    }
-  }
-
   @override
   _CustomerHomeState createState() => _CustomerHomeState();
 }
@@ -24,16 +15,16 @@ class CustomerHome extends StatefulWidget {
 class _CustomerHomeState extends State<CustomerHome> {
   int _currentIndex = 0;
 
-  Stream<List<Item>> itemStream = StreamController().menuItems;
-  Stream<List<Future<Order>>> cartStream = StreamController().userCartItems;
-  Stream<List<Future<Order>>> orderStream = StreamController().userOrders;
-
   // TAB SWITCHER
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
+
+  Stream<List<Item>> itemStream = StreamController().menuItems;
+  Stream<List<Future<Order>>> cartStream = StreamController().userCartItems;
+  Stream<List<Future<Order>>> orderStream = StreamController().userOrders;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +53,18 @@ class _CustomerHomeState extends State<CustomerHome> {
                           icon: new Icon(Icons.shopping_basket),
                           title: new Text('Cart'),
                         ),
-                        BottomNavigationBarItem(icon: Icon(Icons.av_timer), title: Text('Orders'))
+                        BottomNavigationBarItem(
+                          icon: Stack(
+                            children: <Widget>[
+                              Icon(Icons.ac_unit),
+                              Positioned(
+                                right: 0.0,
+                                child: Icon(Icons.brightness_1, size: 10.0, color: Colors.red[900]),
+                              )
+                            ],
+                          ),
+                          title: Text('Orders'),
+                        )
                       ],
                     ),
                   );

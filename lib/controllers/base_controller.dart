@@ -5,8 +5,15 @@ import 'package:sanal_menu/models/device.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/models/user.dart';
+import 'package:device_id/device_id.dart';
 
 enum MessageTypes { success, error, warning, info }
+
+class FunctionFeedback {
+  FunctionFeedback({this.type, this.message});
+  MessageTypes type;
+  String message;
+}
 
 class BaseController {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -39,16 +46,17 @@ class BaseController {
     Device device = await StreamController().getDeviceByID(doc['deviceID']);
     return Order(
       id: doc.documentID ?? '',
-      deviceName: device.name ?? '', 
+      deviceName: device != null ? device.name : 'Unknown',
       deviceID: doc.data['deviceID'] ?? '',
       itemID: doc.data['itemID'],
+      itemName: item.name ?? 'Unknown',
+      itemPrice: item.price,
       quantity: doc.data['quantity'] ?? 0,
       status: doc.data['status'] ?? '',
       assignee: doc.data['assignee'] ?? '',
       creationTime: doc.data['timestamp'] != null
           ? DateTime.fromMillisecondsSinceEpoch(doc.data['timestamp'].millisecondsSinceEpoch, isUtc: true)
           : DateTime.now(),
-      name: item.name ?? 'Unknown',
     );
   }
 
@@ -56,7 +64,7 @@ class BaseController {
   List<User> usersFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return User(
-        id: doc.data['id'] ?? '',
+        id: doc.data['uid'] ?? '',
         email: doc.data['email'] ?? '',
         name: doc.data['name'] ?? '',
         role: doc.data['role'] ?? '',

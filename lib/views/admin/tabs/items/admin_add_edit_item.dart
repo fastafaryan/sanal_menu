@@ -47,7 +47,7 @@ class AdminAddEditItem extends StatelessWidget {
                     TextFormField(
                       initialValue: item != null ? item.name : '',
                       decoration: inputDecoration.copyWith(labelText: "Name"),
-                      validator: (val) => val.isEmpty ? 'Zorunlu' : null,
+                      validator: (val) => val.isEmpty ? 'Obligatory field' : null,
                       onChanged: (val) => Provider.of<AdminItemController>(context, listen: false).setName(val),
                     ),
                     SizedBox(height: 10),

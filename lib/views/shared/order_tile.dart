@@ -35,7 +35,7 @@ class OrderTile extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text(order.data.name, style: Theme.of(context).textTheme.bodyText2),
+                                Text(order.data.itemName, style: Theme.of(context).textTheme.bodyText2),
                                 Text(order.data.deviceName, style: Theme.of(context).textTheme.bodyText2),
                               ],
                             ),

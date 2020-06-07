@@ -17,6 +17,22 @@ class Cart extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
+          // HEADER
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () => CustomerController().completeOrders(snapshot.data),
+                  child: Text("Confirm order", style: Theme.of(context).textTheme.button),
+                  elevation: 0,
+                ),
+              ],
+            ),
+          ),
+
+          // CART ITEMS
           Expanded(
             child: ListView.builder(
               itemCount: snapshot.data.length,
@@ -24,17 +40,6 @@ class Cart extends StatelessWidget {
                 return CustomerCartItemTile(orderFuture: snapshot.data[index]);
               },
             ),
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: RaisedButton(
-                  onPressed: () => CustomerController().completeOrders(snapshot.data),
-                  child: Text("Confirm order", style: Theme.of(context).textTheme.button),
-                  elevation: 0,
-                ),
-              )
-            ],
           ),
         ],
       ),

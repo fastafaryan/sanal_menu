@@ -3,31 +3,26 @@ import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Order {
-  Order({this.id, this.deviceID, this.itemID, this.creationTime, this.name, this.deviceName, int quantity, String status, String assignee}) {
+  Order({this.id, this.deviceID, this.itemID, this.itemName, this.itemPrice, this.creationTime, this.deviceName, int quantity, String status, String assignee}) {
     setQuantity(quantity);
     setStatus(status);
     setAssignee(assignee);
   }
 
-  // Unique id of this record on Firebase.
+  // Properties
   String id;
-
-  // Holds device id which this order is made.
   String deviceID;
-
-  // Holds device display name.
   String deviceName = 'Unknown';
-
-  // Holds catalog item id which this order record represents.
   String itemID;
-
+  String itemName = "Unknown";
+  double itemPrice;
   bool isSelected = false;
-
-  // Name of the catalog item. This column does not exist in Firebase. It is obtain from stream object mapping.
-  String name = "Unknown";
+  DateTime creationTime;
+  String _assignee;
+  int _quantity;
+  String _status;
 
   // Holds order confirmation timestamp.
-  DateTime creationTime;
   String getCreationTime() {
     String hour = creationTime.toLocal().hour.toString() + ":" + creationTime.toLocal().minute.toString();
     //String day = creationTime.toLocal().day.toString() + "." + creationTime.toLocal().month.toString() + "." + creationTime.toLocal().year.toString();
@@ -36,14 +31,12 @@ class Order {
 
   // Indicates currently assigned user. Takes uid of that user.
   // If no one is assigned then value is an empty string.
-  String _assignee;
   String get assignee => _assignee;
   void setAssignee(String value) {
     _assignee = value;
   }
 
   // Holds how many of this item should be.
-  int _quantity;
   int get quantity => _quantity;
   void setQuantity(int value) {
     if (value == 0)
@@ -54,12 +47,11 @@ class Order {
 
   // Indicates current status of this order.Has 7 different possible values.
   // Which are: 1-InCart 2-Ordered 3-Preparing 4-Ready 5-Serving 6-Served 7-Paid
-  String _status;
+  List<String> possibleStatuses = ['InCart', 'Ordered', 'Preparing', 'Ready', 'Serving', 'Served', 'PaymentRequested', 'Paying', 'Paid', null];
   String get status => _status;
   void setStatus(String value) {
-    List<String> possibleValues = ['InCart', 'Ordered', 'Preparing', 'Ready', 'Serving', 'Served', 'Paid', null];
     // If given parameter value is inside the list set value.
-    if (possibleValues.contains(value))
+    if (possibleStatuses.contains(value))
       _status = value;
     else
       throw "Tried to assign undefined value to {order.status}.";

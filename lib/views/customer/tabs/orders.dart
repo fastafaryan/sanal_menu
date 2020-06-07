@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sanal_menu/views/customer/widgets/order_summary.dart';
 import 'package:sanal_menu/views/customer/widgets/customer_order_tile.dart';
 
 class OrdersView extends StatelessWidget {
-  AsyncSnapshot snapshot;
+  final  AsyncSnapshot snapshot;
   OrdersView({this.snapshot});
 
   @override
@@ -13,12 +14,20 @@ class OrdersView extends StatelessWidget {
       );
     }
 
-    return ListView.builder(
-      itemCount: snapshot.data.length,
-      itemBuilder: (_, int index) {
-        //return Text("Order Item");
-        return CustomerOrderTile(orderFuture: snapshot.data[index]);
-      },
+    return Container(
+      child: Column(
+        children: <Widget>[
+          OrderSummary(snapshot: snapshot),
+          Expanded(
+            child: ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (_, int index) {
+                return CustomerOrderTile(orderFuture: snapshot.data[index]);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

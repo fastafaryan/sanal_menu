@@ -23,13 +23,13 @@ class StreamController extends BaseController {
     String deviceID = await DeviceId.getID;
     yield* ordersCollection
         .where('deviceID', isEqualTo: deviceID)
-        .where('status', whereIn: ['Ordered', 'Preparing', 'Ready', 'Serving', 'Served'])
+        .where('status', whereIn: ['Ordered', 'Preparing', 'Ready', 'Serving', 'Served', 'PaymentRequested', 'Paying'])
         .snapshots()
         .map(ordersFromSnapshot);
   }
 
   // sTREAM OF ALL USERS
-  Stream<List<User>> get users {
+  Stream<List<User>> get adminAllUsers  {
     return usersCollection.snapshots().map(usersFromSnapshot);
   }
 
@@ -78,10 +78,8 @@ class StreamController extends BaseController {
           name: doc.data['name'] ?? '',
         );
       });
-    } else if (query.documents.length > 1)
-      throw "Duplicate records exist";
-    else
-      throw "Record not found.";
+    } else if (query.documents.length > 1) throw "Duplicate records exist";
+    //else throw "Record not found.";
   }
 
   // STREAM OF ALL MENU ITEMS
