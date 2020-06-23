@@ -1,10 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sanal_menu/controllers/base_controller.dart';
+import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_id/device_id.dart';
 
 class CustomerController extends ChangeNotifier with BaseController {
+  // STREAM OF ALL MENU ITEMS
+  Stream<List<Item>> get items {
+    return Firestore.instance.collection('items').snapshots().map(itemsFromSnapshot);
+  }
+
+  // STREAM OF ALL CURRENT USER CART ITEMS
+  Stream<List<Future<Order>>> get cartItems async* {
+    String deviceID = await DeviceId.getID;
+    yield* ordersCollection.where('deviceID', isEqualTo: deviceID).where('status', isEqualTo: 'InCart').snapshots().map(ordersFromSnapshot);
+  }
+
+  // STREAM OF CURRENT USER ORDERS
+  Stream<List<Future<Order>>> get orders async* {
+    String deviceID = await DeviceId.getID;
+    yield* ordersCollection
+        .where('deviceID', isEqualTo: deviceID)
+        .where('status', whereIn: ['Ordered', 'Preparing', 'Ready', 'Serving', 'Served', 'PaymentRequested', 'Paying'])
+        .snapshots()
+        .map(ordersFromSnapshot);
+  }
 
   Future addToCart(String itemID) async {
     // Create an instance for Order which will be added to cart.
@@ -105,5 +126,15 @@ class CustomerController extends ChangeNotifier with BaseController {
       });
     });
     return {'type': MessageTypes.success, 'message': 'Payment request has been canceled.'};
+  }
+
+  Stream<List<Future<Order>>> getOrderByItemID(String itemID) async* {
+    String deviceID = await DeviceId.getID;
+    yield* ordersCollection
+        .where('status', whereIn: ['InCart'])
+        .where('deviceID', isEqualTo: deviceID)
+        .where('itemID', isEqualTo: itemID)
+        .snapshots()
+        .map(ordersFromSnapshot);
   }
 }

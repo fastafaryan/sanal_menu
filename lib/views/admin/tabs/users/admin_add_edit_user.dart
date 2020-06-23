@@ -86,7 +86,7 @@ class AdminAddEditUser extends StatelessWidget {
 
                 // SUBMIT
                 RaisedButton(
-                  child: Text('Add', style: Theme.of(context).textTheme.button),
+                  child: Text('Submit', style: Theme.of(context).textTheme.button),
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       FunctionFeedback feedback = await Provider.of<AdminUserController>(context, listen: false).addEditUser();

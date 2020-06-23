@@ -25,7 +25,7 @@ class WaiterAssignments extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Siparişler',
+                  'Orders',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Row(
@@ -58,9 +58,9 @@ class WaiterAssignments extends StatelessWidget {
                         final result = await showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return ConfirmationPopup(message: "Seçili siparişleri teslim edildi olarak güncellemek istediğinize emin misiniz?");
+                              return ConfirmationPopup(message: "Do you want to update as done?");
                             });
-                        if (result == true) Provider.of<WaiterController>(context, listen: false).setAsServed();
+                        if (result == true) Provider.of<WaiterController>(context, listen: false).setAsDone();
                       },
                     )
                   ],

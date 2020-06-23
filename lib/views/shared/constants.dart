@@ -60,20 +60,18 @@ AppBar appBarNonAuth(BuildContext context) {
 
 // Circle to display on loading screen
 Widget loadingCircle({String messsage}) {
-  return Scaffold(
-    body: Padding(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SpinKitRing(
-            color: Colors.red[900],
-            size: 40.0,
-          ),
-          SizedBox(height: 10),
-          messsage != null ? Text(messsage) : Text("Loading"),
-        ],
-      ),
+  return Padding(
+    padding: EdgeInsets.all(15),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SpinKitRing(
+          color: Colors.red[900],
+          size: 40.0,
+        ),
+        SizedBox(height: 10),
+        messsage != null ? Text(messsage) : Text("Loading"),
+      ],
     ),
   );
 }

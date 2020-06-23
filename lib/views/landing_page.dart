@@ -16,7 +16,9 @@ class LandingPage extends StatelessWidget {
         print(currentUser);
         if (currentUser == null || currentUser.connectionState == ConnectionState.waiting || !currentUser.hasData) {
           print("[landing_page.dart] returning loadingCircle");
-          return loadingCircle(messsage: "Checking authentication...");
+          return Scaffold(
+            body: loadingCircle(messsage: "Checking authentication..."),
+          );
         }
         if (currentUser.data.isAnonymous) {
           print("[landing_page.dart] returning customer_home.dart");

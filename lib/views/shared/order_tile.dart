@@ -9,7 +9,7 @@ import 'package:sanal_menu/views/shared/constants.dart';
 Displays Order with its name, quantity as well as a checkbox on the right side.
 Currently used inside below classes. 
 - CookOrderList
-- CookAssignmets
+- CookAssignments
 - WaiterOrders
 - WaiterAssignments
 */
@@ -30,32 +30,42 @@ class OrderTile extends StatelessWidget {
                 return Consumer<WaiterController>(
                   builder: (context, waiterController, child) {
                     return CheckboxListTile(
-                        title: Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(order.data.itemName, style: Theme.of(context).textTheme.bodyText2),
-                                Text(order.data.deviceName, style: Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(order.data.quantity.toString() + " adet", style: Theme.of(context).textTheme.caption),
-                                Text("Order time: " + order.data.getCreationTime(), style: Theme.of(context).textTheme.caption),
-                              ],
-                            ),
-                          ],
-                        ),
-                        value: order.data.isSelected,
-                        onChanged: (bool value) {
-                          // Check order status to call correct funciton
-                          if (order.data.status == 'Ordered' || order.data.status == 'Preparing')
-                            Provider.of<CookController>(context, listen: false).toggleSelection(order.data);
-                          if (order.data.status == 'Ready' || order.data.status == 'Serving')
-                            Provider.of<WaiterController>(context, listen: false).toggleSelection(order.data);
-                        });
+                      title: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(order.data.itemName,
+                                  style: Theme.of(context).textTheme.bodyText2),
+                              Text(order.data.deviceName,
+                                  style: Theme.of(context).textTheme.bodyText2),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text("Quantity: "+order.data.quantity.toString(),
+                                  style: Theme.of(context).textTheme.caption),
+                              Text(
+                                  "Order time: " + order.data.getCreationTime(),
+                                  style: Theme.of(context).textTheme.caption),
+                            ],
+                          ),
+                        ],
+                      ),
+                      value: order.data.isSelected,
+                      onChanged: (bool value) {
+                        // Check order status to call correct function
+                        if (order.data.status == 'Ordered' ||
+                            order.data.status == 'Preparing')
+                          Provider.of<CookController>(context, listen: false)
+                              .toggleSelection(order.data);
+                        if (order.data.status == 'Ready' ||
+                            order.data.status == 'Serving')
+                          Provider.of<WaiterController>(context, listen: false)
+                              .toggleSelection(order.data);
+                      },
+                    );
                   },
                 );
               },

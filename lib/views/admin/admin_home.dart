@@ -2,7 +2,6 @@ import 'package:sanal_menu/models/device.dart';
 import 'package:sanal_menu/models/user.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/controllers/admin/admin_controller.dart';
-import 'package:sanal_menu/controllers/stream_controller.dart';
 import 'package:sanal_menu/views/admin/tabs/devices/admin_device_list.dart';
 import 'package:sanal_menu/views/admin/tabs/devices/admin_add_device.dart';
 import 'package:sanal_menu/views/admin/tabs/items/admin_add_edit_item.dart';
@@ -15,9 +14,9 @@ import 'package:provider/provider.dart';
 
 class AdminHome extends StatelessWidget {
 
-  Stream<List<User>> usersStream = StreamController().adminAllUsers;
-  Stream<List<Item>> itemStream = StreamController().menuItems;
-  Stream<List<Device>> devicesStream = StreamController().devices;
+  Stream<List<User>> usersStream = AdminController().users;
+  Stream<List<Item>> itemStream = AdminController().items;
+  Stream<List<Device>> devicesStream = AdminController().devices;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +56,7 @@ class AdminHome extends StatelessWidget {
                           ),
                           BottomNavigationBarItem(
                             icon: new Icon(Icons.local_dining),
-                            title: new Text('Catalog'),
+                            title: new Text('Menu'),
                           ),
                           BottomNavigationBarItem(
                             icon: new Icon(Icons.devices),

@@ -1,3 +1,4 @@
+import 'package:sanal_menu/controllers/auth_controller.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +9,15 @@ class CookController extends ChangeNotifier with BaseController {
   // list for storing selected orders by checking checkboxes in the UI.
   final List<Order> _selectedOrders = [];
   final List<Order> _selectedAssignments = [];
+
+  Stream<List<Future<Order>>> get orders {
+    return ordersCollection.where('status', isEqualTo: "Ordered").snapshots().map((ordersFromSnapshot));
+  }
+
+  Stream<List<Future<Order>>> get assignments async* {
+    String uid = await AuthController().getCurrentUserId();
+    yield* ordersCollection.where('status', isEqualTo: "Preparing").where('assignee', isEqualTo: uid).snapshots().map(ordersFromSnapshot);
+  }
 
   // adds or removes order to selected orders list depending on the checkbox value.
   void toggleSelection(Order order) {

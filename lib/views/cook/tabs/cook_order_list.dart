@@ -25,7 +25,7 @@ class CookOrderList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                "Customer Orders",
+                "Orders",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               IconButton(

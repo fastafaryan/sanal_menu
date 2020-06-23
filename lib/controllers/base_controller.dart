@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sanal_menu/controllers/stream_controller.dart';
+import 'package:sanal_menu/controllers/auth_controller.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart_';
 import 'package:sanal_menu/models/device.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
@@ -42,8 +43,8 @@ class BaseController {
   }
 
   Future<Order> orderFromSnapshot(DocumentSnapshot doc) async {
-    Item item = await StreamController().getItemByID(doc['itemID']);
-    Device device = await StreamController().getDeviceByID(doc['deviceID']);
+    Item item = await BaseController().getItemByID(doc['itemID']);
+    Device device = await BaseController().getDeviceByID(doc['deviceID']);
     return Order(
       id: doc.documentID ?? '',
       deviceName: device != null ? device.name : 'Unknown',
@@ -83,4 +84,36 @@ class BaseController {
   void removeOrder(List<Order> list, Order order) {
     list.remove(order);
   }
+
+  Stream<List<Future<Order>>> getOrderByItemID(String itemID) async* {
+    String deviceID = await DeviceId.getID;
+    yield* ordersCollection.where('deviceID', isEqualTo: deviceID).where('itemID', isEqualTo: itemID).snapshots().map(ordersFromSnapshot);
+  }
+
+  // ACCESSING ITEM BY ITS ID. USED TO ACCESS ITEM THROUGH ORDER.
+  Future<Item> getItemByID(String itemID) {
+    return itemsCollection.document(itemID).get().then((doc) {
+      return Item(
+        id: doc.documentID ?? '',
+        name: doc.data['name'] ?? '',
+        image: doc.data['image'],
+        price: doc.data['price'] ?? 0,
+      );
+    });
+  }
+
+  // ACCESSING ITEM BY ITS ID. USED TO ACCESS ITEM THROUGH ORDER.
+  Future<Device> getDeviceByID(String deviceID) async {
+    QuerySnapshot query = await devicesCollection.where('id', isEqualTo: deviceID).getDocuments();
+    if (query.documents.length == 1) {
+      return devicesCollection.document(query.documents.first.documentID).get().then((doc) {
+        return Device(
+          id: doc.documentID ?? '',
+          name: doc.data['name'] ?? '',
+        );
+      });
+    } else if (query.documents.length > 1) throw "Duplicate records exist";
+    //else throw "Record not found.";
+  }
+
 }

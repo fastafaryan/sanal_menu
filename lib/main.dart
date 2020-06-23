@@ -3,6 +3,7 @@ import 'package:sanal_menu/controllers/admin/admin_item_controller.dart';
 import 'package:sanal_menu/controllers/admin/admin_user_controller.dart';
 import 'package:sanal_menu/controllers/cook_controller.dart';
 import 'package:sanal_menu/controllers/customer_controller.dart';
+import 'package:sanal_menu/controllers/waiter/waiter_payments_controller.dart';
 import 'package:sanal_menu/controllers/waiter_controller.dart';
 import 'package:sanal_menu/views/admin/admin_home.dart';
 import 'package:sanal_menu/views/customer/customer_home.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CustomerController()),
         ChangeNotifierProvider(create: (context) => AdminItemController()),
         ChangeNotifierProvider(create: (context) => AdminUserController()),
+        ChangeNotifierProvider(create: (context) => WaiterPaymentsController()),
       ],
       child: MaterialApp(
         theme: ThemeData(

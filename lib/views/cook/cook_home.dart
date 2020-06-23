@@ -1,5 +1,6 @@
+import 'package:sanal_menu/controllers/cook_controller.dart';
 import 'package:sanal_menu/models/order.dart';
-import 'package:sanal_menu/controllers/stream_controller.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart_';
 import 'package:sanal_menu/views/cook/tabs/cook_assignments.dart';
 import 'package:sanal_menu/views/cook/tabs/cook_order_list.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,8 @@ class CookHome extends StatefulWidget {
 
 class _CookHomeState extends State<CookHome> {
   int _currentIndex = 0;
-  Stream<List<Future<Order>>> ordersStream = StreamController().allOrders;
-  Stream<List<Future<Order>>> assignments = StreamController().cookAssignments;
+  Stream<List<Future<Order>>> ordersStream = CookController().orders;
+  Stream<List<Future<Order>>> assignments = CookController().assignments;
 
   // TAB SWITCHER
   void onTabTapped(int index) {
@@ -44,7 +45,7 @@ class _CookHomeState extends State<CookHome> {
                     items: [
                       BottomNavigationBarItem(
                         icon: new Icon(Icons.local_dining),
-                        title: new Text('Customer Orders'),
+                        title: new Text('Orders'),
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(Icons.room_service),

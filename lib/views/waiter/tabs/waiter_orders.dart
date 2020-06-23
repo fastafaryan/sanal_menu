@@ -12,7 +12,7 @@ class WaiterOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     if (snapshot == null || snapshot.data == null || snapshot.data.length == 0) {
       return Center(
-        child: Text('Sipariş bulunmuyor.'),
+        child: Text('Nothing to display.'),
       );
     }
 
@@ -37,7 +37,7 @@ class WaiterOrder extends StatelessWidget {
                           return ConfirmationPopup(message: "Do you wish to assign these orders to yourself?");
                         });
                     if (result == true) {
-                      String result = await Provider.of<WaiterController>(context, listen: false).startService();
+                      String result = await Provider.of<WaiterController>(context, listen: false).assignOrder();
                       // Display meesage based on result
                       Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(result),

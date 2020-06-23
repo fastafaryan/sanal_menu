@@ -1,9 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sanal_menu/controllers/stream_controller.dart';
+import 'package:sanal_menu/controllers/base_controller.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart_';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Order {
-  Order({this.id, this.deviceID, this.itemID, this.itemName, this.itemPrice, this.creationTime, this.deviceName, int quantity, String status, String assignee}) {
+  Order(
+      {this.id,
+      this.deviceID,
+      this.itemID,
+      this.itemName,
+      this.itemPrice,
+      this.creationTime,
+      this.deviceName,
+      int quantity,
+      String status,
+      String assignee}) {
     setQuantity(quantity);
     setStatus(status);
     setAssignee(assignee);
@@ -57,6 +68,15 @@ class Order {
       throw "Tried to assign undefined value to {order.status}.";
   }
 
+  void updateStatus(String value) {
+    // If given parameter value is inside the list set value.
+    if (possibleStatuses.contains(value)) {
+      _status = value;
+      Firestore.instance.collection('orders').document(this.id).updateData({'status': _status});
+    } else
+      throw "Tried to assign undefined value to {order.status}.";
+  }
+
   void toggleSelection() {
     isSelected = !isSelected;
   }
@@ -71,18 +91,14 @@ class Order {
         .getDocuments();
 
     // If same record does not exist insert record to DB.
-    if (query.documents.length == 0) {
-      Firestore.instance.collection('orders').add({
-        'deviceID': this.deviceID,
-        'itemID': this.itemID,
-        'quantity': this.quantity,
-        'status': this.status,
-        'assignee': this.assignee,
-        'timestamp': this.creationTime,
-      });
-    } else {
-      throw "Record already exists.";
-    }
+    Firestore.instance.collection('orders').add({
+      'deviceID': this.deviceID,
+      'itemID': this.itemID,
+      'quantity': this.quantity,
+      'status': this.status,
+      'assignee': this.assignee,
+      'timestamp': this.creationTime,
+    });
   }
 
 // Updates this order's record on DB if exists.

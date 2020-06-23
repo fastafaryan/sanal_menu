@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sanal_menu/controllers/base_controller.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/controllers/customer_controller.dart';
-import 'package:sanal_menu/controllers/stream_controller.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart_';
 import 'package:sanal_menu/views/shared/confirmation_popup.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 
@@ -20,7 +21,7 @@ class CustomerOrderTile extends StatelessWidget {
           return loadingCircle();
         }
 
-        Future<Item> itemFuture = StreamController().getItemByID(order.data.itemID);
+        Future<Item> itemFuture = BaseController().getItemByID(order.data.itemID);
         return FutureBuilder(
           future: itemFuture,
           builder: (context, item) {

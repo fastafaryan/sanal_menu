@@ -1,8 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sanal_menu/controllers/base_controller.dart';
+import 'package:sanal_menu/models/user.dart';
 
-class AuthController {
+class AuthController extends BaseController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Stream<List<User>> get checkUserRole async* {
+    String uid = await AuthController().getCurrentUserId();
+    yield* usersCollection
+        .where('uid', isEqualTo: uid)
+        .snapshots()
+        .map(usersFromSnapshot);
+  }
 
   Future<String> getCurrentUserId() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
@@ -25,14 +35,21 @@ class AuthController {
   // register with email & password
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      return await _auth.createUserWithEmailAndPassword(email: email, password: password).then((currentUser) {
+      return await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((currentUser) {
         if (currentUser == null) {
           print("null current user");
         } else {
           Firestore.instance
               .collection("users")
               .document(currentUser.user.uid)
-              .setData({"uid": currentUser.user.uid, "name": 'Root Admin', "email": email, "role": 'Admin'});
+              .setData({
+            "uid": currentUser.user.uid,
+            "name": 'Root Admin',
+            "email": email,
+            "role": 'Admin'
+          });
         }
       });
     } catch (e) {
@@ -47,7 +64,8 @@ class AuthController {
       FirebaseUser previousUser = await FirebaseAuth.instance.currentUser();
       if (previousUser.isAnonymous) previousUser.delete();
 
-      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       FirebaseUser user = result.user;
       return user;
     } catch (e) {

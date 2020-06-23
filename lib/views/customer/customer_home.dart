@@ -1,9 +1,10 @@
+import 'package:sanal_menu/controllers/customer_controller.dart';
 import 'package:sanal_menu/models/item.dart';
 import 'package:sanal_menu/models/order.dart';
 import 'package:sanal_menu/views/customer/tabs/cart.dart';
 import 'package:sanal_menu/views/customer/tabs/catalog.dart';
 import 'package:sanal_menu/views/customer/tabs/orders.dart';
-import 'package:sanal_menu/controllers/stream_controller.dart';
+import 'package:sanal_menu/controllers/stream_controller.dart_';
 import 'package:flutter/material.dart';
 import 'package:sanal_menu/views/shared/constants.dart';
 
@@ -22,9 +23,9 @@ class _CustomerHomeState extends State<CustomerHome> {
     });
   }
 
-  Stream<List<Item>> itemStream = StreamController().menuItems;
-  Stream<List<Future<Order>>> cartStream = StreamController().userCartItems;
-  Stream<List<Future<Order>>> orderStream = StreamController().userOrders;
+  Stream<List<Item>> itemStream = CustomerController().items;
+  Stream<List<Future<Order>>> cartStream = CustomerController().cartItems;
+  Stream<List<Future<Order>>> orderStream = CustomerController().orders;
 
   @override
   Widget build(BuildContext context) {
@@ -47,22 +48,14 @@ class _CustomerHomeState extends State<CustomerHome> {
                       items: [
                         BottomNavigationBarItem(
                           icon: new Icon(Icons.local_dining),
-                          title: new Text('Catalog'),
+                          title: new Text('Menu'),
                         ),
                         BottomNavigationBarItem(
                           icon: new Icon(Icons.shopping_basket),
                           title: new Text('Cart'),
                         ),
                         BottomNavigationBarItem(
-                          icon: Stack(
-                            children: <Widget>[
-                              Icon(Icons.ac_unit),
-                              Positioned(
-                                right: 0.0,
-                                child: Icon(Icons.brightness_1, size: 10.0, color: Colors.red[900]),
-                              )
-                            ],
-                          ),
+                          icon: new Icon(Icons.timer),
                           title: Text('Orders'),
                         )
                       ],

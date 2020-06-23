@@ -28,6 +28,8 @@ class AdminUserController extends ChangeNotifier with BaseController {
     // update user if user.id exists
     if (user.id != null) {
       usersCollection.document(user.id).updateData({'email': user.email, 'name': user.name, 'role': user.role});
+        return FunctionFeedback(type: MessageTypes.success, message: "User has been edited successfully.");
+
     } else {
       // Else try to create a new user.
       try {
@@ -55,6 +57,6 @@ class AdminUserController extends ChangeNotifier with BaseController {
       usersCollection.document(user.documentID).delete();
       print("deleted" + user.data['email']);
     });
-    return "This function is not available yet.";
+    return "User has been deleted.";
   }
 }

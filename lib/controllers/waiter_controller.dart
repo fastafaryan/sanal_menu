@@ -4,20 +4,51 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class WaiterController extends ChangeNotifier with BaseController{
+class WaiterController extends ChangeNotifier with BaseController {
   // list for storing selected orders by checking checkboxes in the UI.
   final List<Order> _selectedOrders = [];
   final List<Order> _selectedAssignments = [];
 
   // Stream for prepared food for serving.
   Stream<List<Future<Order>>> get readyOrders {
-    return ordersCollection.where('status', isEqualTo: 'Ready').where('assignee', isEqualTo: null).orderBy('timestamp', descending: false).snapshots().map(ordersFromSnapshot);
+    return ordersCollection
+        .where('status', isEqualTo: 'Ready')
+        .where('assignee', isEqualTo: null)
+        .orderBy('timestamp', descending: false)
+        .snapshots()
+        .map(ordersFromSnapshot);
   }
 
   // Stream for prepared food for serving.
-  Stream<List<Future<Order>>> get assignments async*{
+  Stream<List<Future<Order>>> get assignments async* {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser(); // gets current user.
-    yield* ordersCollection.where('status', isEqualTo: 'Serving').where('assignee', isEqualTo: user.uid).orderBy('timestamp', descending: false).snapshots().map(ordersFromSnapshot);
+    yield* ordersCollection
+        .where('status', isEqualTo: 'Serving')
+        .where('assignee', isEqualTo: user.uid)
+        .orderBy('timestamp', descending: false)
+        .snapshots()
+        .map(ordersFromSnapshot);
+  }
+
+  // Stream for prepared food for serving.
+  Stream<List<Future<Order>>> get paymentRequests async* {
+    yield* ordersCollection
+        .where('status', isEqualTo: 'PaymentRequested')
+        .where('assignee', isEqualTo: null)
+        .orderBy('timestamp', descending: false)
+        .snapshots()
+        .map(ordersFromSnapshot);
+  }
+
+  // Stream for prepared food for serving.
+  Stream<List<Future<Order>>> get assignedPaymentRequests async* {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser(); // gets current user.
+    yield* ordersCollection
+        .where('status', isEqualTo: 'Paying')
+        .where('assignee', isEqualTo: user.uid)
+        .orderBy('timestamp', descending: false)
+        .snapshots()
+        .map(ordersFromSnapshot);
   }
 
   // adds or removes order to selected orders list depending on the checkbox value.
@@ -45,7 +76,7 @@ class WaiterController extends ChangeNotifier with BaseController{
   }
 
   // assigns orders in selected orders list to currently signed user.
-  Future startService() async {
+  Future assignOrder() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser(); // gets current user.
 
     // runs a loop for each selected orders. updates their assignee field to current user's uid.
@@ -59,7 +90,7 @@ class WaiterController extends ChangeNotifier with BaseController{
     return "Orders are assigned.";
   }
 
-  String setAsServed() {
+  String setAsDone() {
     // runs a loop for each selected assignments. updates their status to ready and assignee to null
     this._selectedAssignments.forEach((order) {
       Firestore.instance.collection('orders').document(order.id).updateData({'assignee': null, 'status': 'Served'}); // update DB
