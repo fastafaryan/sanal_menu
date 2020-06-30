@@ -1,16 +1,54 @@
-# sanal_menu
+# VIRTUAL MENU
+Virtual menu is an application for food catering system. It includes 4 different user role with unique abilities for each of them. These user roles are customer, cook, waiter and administrator.
 
-A new Flutter project.
+## USER INTERFACES
 
-## Getting Started
+### Customer User Interfaces
 
-This project is a starting point for a Flutter application.
+#### Menu
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/customer-menu.png" width="400" />
 
-A few resources to get you started if this is your first Flutter project:
+#### Menu Item Popup
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/menu-item-popup.png" width="400" />
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#### Cart
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/customer-cart.png" width="400" />
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Orders
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/customer-orders.png" width="400" />
+
+### Cook User Interfaces
+
+#### Orders
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/cook-orders.png" width="400" />
+
+#### Assignments
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/cook-assignments.png" width="400" />
+
+### Waiter User Interfaces
+
+#### Orders
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/waiter-orders.png" width="400" />
+
+#### Assignments
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/waiter-assignments.png" width="400" />
+
+### Admin User Interfaces
+
+#### Users
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-users.png" width="400" />
+
+#### Add/Edit User
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-add-edit-user.png" width="400" />
+
+#### Items
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-items.png" width="400" />
+
+#### Add/Edit Item
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-add-edit-item.png" width="400" />
+
+#### Devices
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-devices.png" width="400" />
+
+#### Add/Edit Device
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-add-edit-device.png" width="400" />
