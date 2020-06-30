@@ -1,9 +1,11 @@
 # VIRTUAL MENU
 Virtual menu is an application for food catering system. It includes 4 different user role with unique abilities for each of them. These user roles are customer, cook, waiter and administrator.
 
-##### TABLE OF CONTENTS  
+## TABLE OF CONTENTS  
 [Customer User Interfaces](#customer-uis)  
-    
+[Admin User Interfaces](#admin-uis)  
+[Cook User Interfaces](#cook-uis)  
+[Waiter User Interfaces](#waiter-uis)  
 
 ## USER INTERFACES
 
@@ -23,23 +25,9 @@ Virtual menu is an application for food catering system. It includes 4 different
 #### Orders
 <img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/customer-orders.png" width="400" />
 
-### Cook User Interfaces
-
-#### Orders
-<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/cook-orders.png" width="400" />
-
-#### Assignments
-<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/cook-assignments.png" width="400" />
-
-### Waiter User Interfaces
-
-#### Orders
-<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/waiter-orders.png" width="400" />
-
-#### Assignments
-<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/waiter-assignments.png" width="400" />
-
 ### Admin User Interfaces
+
+<a name="admin-uis"/>
 
 #### Users
 <img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-users.png" width="400" />
@@ -58,3 +46,23 @@ Virtual menu is an application for food catering system. It includes 4 different
 
 #### Add/Edit Device
 <img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/admin-add-edit-device.png" width="400" />
+
+<a name="cook-uis"/>
+
+### Cook User Interfaces
+
+#### Orders
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/cook-orders.png" width="400" />
+
+#### Assignments
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/cook-assignments.png" width="400" />
+
+<a name="waiter-uis"/>
+
+### Waiter User Interfaces
+
+#### Orders
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/waiter-orders.png" width="400" />
+
+#### Assignments
+<img src="https://github.com/fastafaryan/sanal_menu/blob/master/assets/screenshots/waiter-assignments.png" width="400" />
