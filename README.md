@@ -1,7 +1,13 @@
 # VIRTUAL MENU
 Virtual menu is an application for food catering system. It includes 4 different user role with unique abilities for each of them. These user roles are customer, cook, waiter and administrator.
 
+##### TABLE OF CONTENTS  
+[Customer User Interfaces](#customer-uis)  
+    
+
 ## USER INTERFACES
+
+<a name="customer-uis"/>
 
 ### Customer User Interfaces
 
